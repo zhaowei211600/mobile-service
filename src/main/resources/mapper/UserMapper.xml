@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.third.enterprise.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.third.enterprise.bean.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="card_no" property="cardNo" jdbcType="VARCHAR" />
+    <result column="card_img_front" property="cardImgFront" jdbcType="VARCHAR" />
+    <result column="card_img_back" property="cardImgBack" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="pass_time" property="passTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, phone, password, real_name, card_no, card_img_front, card_img_back, status, register_time, pass_time, create_time,
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.third.enterprise.bean.User" >
+    insert into t_user (id, phone, password,
+      real_name, card_no, card_img_front, card_img_back, status,
+      register_time, pass_time, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, #{cardImgFront,jdbcType=VARCHAR},
+        #{cardImgBack,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},
+      #{registerTime,jdbcType=TIMESTAMP}, #{passTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.third.enterprise.bean.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="cardNo != null" >
+        card_no,
+      </if>
+      <if test="cardImgFront != null" >
+        card_img_front,
+      </if>
+      <if test="cardImgBack != null" >
+        card_img_back,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="passTime != null" >
+        pass_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgFront != null" >
+        #{cardImgFront,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgBack != null" >
+        #{cardImgBack,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passTime != null" >
+        #{passTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.third.enterprise.bean.User" >
+    update t_user
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        card_no = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgFront != null" >
+        card_img_front = #{cardImgFront,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgBack != null" >
+        card_img_back = #{cardImgBack,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passTime != null" >
+        pass_time = #{passTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.third.enterprise.bean.User" >
+    update t_user
+    set phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      card_img_front = #{cardImgFront,jdbcType=VARCHAR},
+      card_img_back = #{cardImgBack,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      pass_time = #{passTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="listAll" resultMap="BaseResultMap" resultType="com.third.enterprise.bean.request.CustomListRequest">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where 1=1
+    <if test="phone != null and phone != ''">
+       and phone = #{phone,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status != ''">
+      and status = #{status,jdbcType=VARCHAR}
+    </if>
+    <if test="registerTimeStart != null and registerTimeStart != ''">
+       and register_time >=  #{registerTimeStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="registerTimeEnd != null and registerTimeEnd != ''">
+      and register_time <![CDATA[<=]]> #{registerTimeEnd,jdbcType=TIMESTAMP}
+    </if>
+    <if test="passTimeStart != null and passTimeStart != ''">
+      and pass_time >= #{passTimeStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="registerTimeEnd != null and registerTimeEnd != ''">
+      and pass_time <![CDATA[<=]]> #{passTimeEnd,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+
+  <select id="findByOrderId" resultMap="BaseResultMap">
+    select
+      t1.*
+    from t_user t1
+    right join t_order t2
+    on t1.id = t2.user_id
+    where t2.id = #{orderId}
+  </select>
+
+  <select id="findByProductId" resultMap="BaseResultMap">
+    SELECT
+      t1.*
+    FROM
+      t_user t1
+      RIGHT JOIN t_order t2
+        ON t1.id = t2.user_id
+    WHERE t2.product_id = #{productId}
+  </select>
+
+  <update id="updateStatus">
+      update t_user
+      set status = #{status}
+      where id = #{userId}
+  </update>
+</mapper>
