@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.third.enterprise.dao.ProductMapper" >
-  <resultMap id="BaseResultMap" type="com.third.enterprise.bean.Product" >
+<mapper namespace="com.third.mobile.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.third.mobile.bean.Product" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="product_id" property="productId" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -58,7 +58,7 @@
     delete from t_product
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.third.enterprise.bean.Product" >
+  <insert id="insert" parameterType="com.third.mobile.bean.Product" >
     insert into t_product (id, product_id, name,
       budget, real_cost, period, 
       expect_delivery_time, real_delivery_time,contract_time, `desc`,
@@ -73,7 +73,7 @@
       #{ownerId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.third.enterprise.bean.Product" >
+  <insert id="insertSelective" parameterType="com.third.mobile.bean.Product" >
     insert into t_product
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -176,7 +176,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.third.enterprise.bean.Product" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.Product" >
     update t_product
     <set >
       <if test="productId != null" >
@@ -227,7 +227,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.third.enterprise.bean.Product" >
+  <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.Product" >
     update t_product
     set product_id = #{productId,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
@@ -250,7 +250,7 @@
   </update>
 
   <select id="listProduct" resultMap="BaseResultMap"
-          parameterType="com.third.enterprise.bean.request.ProductListRequest" >
+          parameterType="com.third.mobile.bean.request.ProductListRequest" >
     select
     <include refid="Base_Column_List" />
     from t_product
@@ -273,7 +273,7 @@
   </select>
 
   <select id="listCheckProduct" resultMap="BaseResultMap"
-          parameterType="com.third.enterprise.bean.request.ProductListRequest" >
+          parameterType="com.third.mobile.bean.request.ProductListRequest" >
     select
     <include refid="Base_Column_List" />
     from t_product
@@ -301,7 +301,7 @@
     where id = #{productId}
   </update>
 
-  <select id="statProduct" resultType="com.third.enterprise.bean.response.ProductStatResponse">
+  <select id="statProduct" resultType="com.third.mobile.bean.response.ProductStatResponse">
     SELECT
       sum(1) totalCount ,
       sum(CASE STATUS WHEN 2 THEN 1 ELSE 0 END) doingCount ,

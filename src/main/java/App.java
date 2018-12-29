@@ -1,4 +1,4 @@
-import com.third.enterprise.service.security.OperationToken;
+import com.third.mobile.service.security.user.UserToken;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.third.enterprise")
-@MapperScan("com.third.enterprise.dao")
-@EnableConfigurationProperties(OperationToken.class)
+@ComponentScan(basePackages = "com.third.mobile")
+@MapperScan("com.third.mobile.dao")
+@EnableConfigurationProperties(UserToken.class)
 @ServletComponentScan
 public class App {
     public static void main(String[] args) {

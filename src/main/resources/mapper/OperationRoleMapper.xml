@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.third.enterprise.dao.OperationRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.third.enterprise.bean.OperationRole" >
+<mapper namespace="com.third.mobile.dao.OperationRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.third.mobile.bean.OperationRole" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="desc" property="desc" jdbcType="VARCHAR" />
@@ -10,7 +10,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
-  <resultMap type="com.third.enterprise.bean.OperationRole" id="OperationRoleMap">
+  <resultMap type="com.third.mobile.bean.OperationRole" id="OperationRoleMap">
     <result property="id" column="id"/>
     <result property="name" column="name"/>
     <result property="desc" column="desc"/>
@@ -18,7 +18,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <collection property="menuList"
-                 ofType="com.third.enterprise.bean.OperationMenu">
+                 ofType="com.third.mobile.bean.OperationMenu">
       <result property="id" column="menu_id"/>
       <result property="parentId" column="parent_id"/>
       <result property="name" column="menu_name"/>
@@ -40,14 +40,14 @@
     delete from t_operation_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.third.enterprise.bean.OperationRole" >
+  <insert id="insert" parameterType="com.third.mobile.bean.OperationRole" >
     insert into t_operation_role (id, name, desc,
       rank, create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
       #{rank,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.third.enterprise.bean.OperationRole"
+  <insert id="insertSelective" parameterType="com.third.mobile.bean.OperationRole"
           useGeneratedKeys="true"
           keyProperty="id">
     insert into t_operation_role
@@ -92,7 +92,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.third.enterprise.bean.OperationRole" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.OperationRole" >
     update t_operation_role
     <set >
       <if test="name != null" >
@@ -113,7 +113,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.third.enterprise.bean.OperationRole" >
+  <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.OperationRole" >
     update t_operation_role
     set name = #{name,jdbcType=VARCHAR},
       desc = #{desc,jdbcType=VARCHAR},
@@ -129,7 +129,7 @@
     where t.name = #{roleName}
   </select>
 
-  <select id="listOperationRole" parameterType="com.third.enterprise.bean.request.OperationRoleRequest"
+  <select id="listOperationRole" parameterType="com.third.mobile.bean.request.OperationRoleRequest"
           resultMap="OperationRoleMap">
     SELECT
     a.id,
@@ -149,7 +149,7 @@
     </if>
     ORDER BY a.id DESC
   </select>
-  <select id="listOperationRoleCount" parameterType="com.third.enterprise.bean.request.OperationRoleRequest"
+  <select id="listOperationRoleCount" parameterType="com.third.mobile.bean.request.OperationRoleRequest"
       resultType="java.lang.Integer">
     SELECT
         count(1)

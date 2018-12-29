@@ -26,7 +26,7 @@
 	</appender>
 
 	<!-- show sql -->
-	<logger name="com.third.enterprise.dao" level="DEBUG" />
+	<logger name="com.third.mobile.dao" level="DEBUG" />
 	<logger name="org.mybatis" level="debug" />
 	<logger name="org.mybatis.common.jdbc.SimpleDataSource" level="debug" />
 	<logger name="org.mybatis.common.jdbc.ScriptRunner" level="debug" />

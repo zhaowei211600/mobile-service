@@ -2,7 +2,7 @@
 #数据源配置
 spring:
   application:
-    name: enterprise-service
+    name: mobile-service
 
   datasource:
     url: jdbc:mysql://127.0.0.1/enterprise

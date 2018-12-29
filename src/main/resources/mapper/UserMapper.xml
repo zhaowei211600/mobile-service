@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.third.enterprise.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.third.enterprise.bean.User" >
+<mapper namespace="com.third.mobile.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.third.mobile.bean.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -29,7 +29,7 @@
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.third.enterprise.bean.User" >
+  <insert id="insert" parameterType="com.third.mobile.bean.User" >
     insert into t_user (id, phone, password,
       real_name, card_no, card_img_front, card_img_back, status,
       register_time, pass_time, create_time, 
@@ -40,7 +40,7 @@
       #{registerTime,jdbcType=TIMESTAMP}, #{passTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.third.enterprise.bean.User" >
+  <insert id="insertSelective" parameterType="com.third.mobile.bean.User" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -119,7 +119,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.third.enterprise.bean.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.User" >
     update t_user
     <set >
       <if test="phone != null" >
@@ -158,7 +158,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.third.enterprise.bean.User" >
+  <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.User" >
     update t_user
     set phone = #{phone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -173,7 +173,7 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="listAll" resultMap="BaseResultMap" resultType="com.third.enterprise.bean.request.CustomListRequest">
+  <select id="listAll" resultMap="BaseResultMap" resultType="com.third.mobile.bean.request.CustomListRequest">
     select
     <include refid="Base_Column_List" />
     from t_user
@@ -222,4 +222,11 @@
       set status = #{status}
       where id = #{userId}
   </update>
+
+  <select id="findByPhone" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where phone = #{phone}
+  </select>
 </mapper>

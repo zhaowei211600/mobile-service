@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.third.enterprise.dao.OperationUserRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.third.enterprise.bean.OperationUserRole" >
+<mapper namespace="com.third.mobile.dao.OperationUserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.third.mobile.bean.OperationUserRole" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
@@ -21,11 +21,11 @@
     delete from t_operation_user_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.third.enterprise.bean.OperationUserRole" >
+  <insert id="insert" parameterType="com.third.mobile.bean.OperationUserRole" >
     insert into t_operation_user_role (id, user_id, role_id)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.third.enterprise.bean.OperationUserRole" >
+  <insert id="insertSelective" parameterType="com.third.mobile.bean.OperationUserRole" >
     insert into t_operation_user_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -62,7 +62,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.third.enterprise.bean.OperationUserRole" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.OperationUserRole" >
     update t_operation_user_role
     <set >
       <if test="userId != null" >
@@ -80,7 +80,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.third.enterprise.bean.OperationUserRole" >
+  <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.OperationUserRole" >
     update t_operation_user_role
     set user_id = #{userId,jdbcType=INTEGER},
       role_id = #{roleId,jdbcType=INTEGER},
