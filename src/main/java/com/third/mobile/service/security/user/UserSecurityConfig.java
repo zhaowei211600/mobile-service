@@ -67,13 +67,24 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js"
+                        "/**/*.js",
+                        "/**/*.woff",
+                        "/**/*.woff2",
+                        "/**/*.ttf",
+                        "/**/*.map",
+                        "/**/*.jpeg",
+                        "/**/*.png"
                 ).permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/user/register").permitAll()
-                .antMatchers("/user/verification").permitAll()
-                .antMatchers("/user/**").authenticated();
+                .antMatchers("/user/verification/**").permitAll()
+                .antMatchers("/user/password/reset").permitAll()
+                .antMatchers("/user/file/upload").permitAll()
+                .antMatchers("/product/list").permitAll()
+                .antMatchers("/product/find").permitAll()
+                .antMatchers("/order/count").permitAll()
+                .anyRequest().authenticated();
         // 添加JWT filter
         httpSecurity
                 .addFilterBefore(userTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

@@ -1,5 +1,6 @@
 package com.third.mobile.bean;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Order {
@@ -21,6 +22,10 @@ public class Order {
     private String phone;
 
     private String registerTime;
+
+    private String productName;
+
+    private BigDecimal budget;
 
     public Integer getId() {
         return id;
@@ -92,5 +97,21 @@ public class Order {
 
     public void setRegisterTime(String registerTime) {
         this.registerTime = registerTime;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public BigDecimal getBudget() {
+        return budget;
+    }
+
+    public void setBudget(BigDecimal budget) {
+        this.budget = budget;
     }
 }

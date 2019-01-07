@@ -19,7 +19,7 @@ public class LocalFileUtil {
             if (!tempFile.exists()) {
                 tempFile.mkdirs();
             }
-            os = new FileOutputStream(tempFile.getPath() + fileName);
+            os = new FileOutputStream(new File(tempFile.getPath() + File.separator + fileName));
             // 开始读取
             while ((len = inputStream.read(bs)) != -1) {
                 os.write(bs, 0, len);

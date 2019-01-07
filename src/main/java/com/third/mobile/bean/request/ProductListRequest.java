@@ -16,6 +16,8 @@ public class ProductListRequest {
 
     private String deliveryTimeEnd;
 
+    private Integer ownerId;
+
     private Integer pageNum = 1;
 
     private Integer pageSize = 10;
@@ -74,6 +76,14 @@ public class ProductListRequest {
 
     public void setDeliveryTimeEnd(String deliveryTimeEnd) {
         this.deliveryTimeEnd = deliveryTimeEnd;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 
     public Integer getPageNum() {

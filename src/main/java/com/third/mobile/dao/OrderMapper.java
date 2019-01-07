@@ -1,7 +1,7 @@
 package com.third.mobile.dao;
 
 import com.third.mobile.bean.Order;
-import com.third.mobile.bean.request.OperationRoleRequest;
+import com.third.mobile.bean.request.OrderRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,7 +21,13 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
 
     int updateOrderStatus(@Param("orderId") Integer orderId,
-                              @Param("status") String status);
+                          @Param("status") String status);
 
-    List<Order> listOrder(OperationRoleRequest request);
+    List<Order> listOrder(OrderRequest request);
+
+    Integer countOrder(Integer productId);
+
+    Order findOrder(@Param("productId") Integer productId,
+                    @Param("userId") Integer userId);
+
 }

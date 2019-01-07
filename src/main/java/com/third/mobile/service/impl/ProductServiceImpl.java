@@ -32,7 +32,7 @@ public class ProductServiceImpl implements IProductService{
     private OrderMapper orderMapper;
 
     @Override
-    public List<Product> listPublishProduct(ProductListRequest request) {
+    public List<Product> listProduct(ProductListRequest request) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
         return productMapper.listProduct(request);
     }
@@ -106,5 +106,19 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public ProductStatResponse statProduct() {
         return productMapper.statProduct();
+    }
+
+    /**
+     * 结项申请
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean applyProduct(Product product) {
+        if(productMapper.updateByPrimaryKeySelective(product) > 0){
+            if(orderMapper.updateOrderStatus(product.getOrderId(), Constants.OrderState.WAIT_CHECK) > 0){
+                return true;
+            }
+        }
+        return false;
     }
 }

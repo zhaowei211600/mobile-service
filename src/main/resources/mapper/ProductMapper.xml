@@ -255,6 +255,9 @@
     <include refid="Base_Column_List" />
     from t_product
     where 1=1
+    <if test="ownerId != null and ownerId != 0">
+      and owner_id = #{ownerId,jdbcType=INTEGER}
+    </if>
     <if test="productName != null and productName != ''">
       and name like concat('%',#{productName},'%')
     </if>

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -26,6 +27,12 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(LockedException.class)
+    public Object handleLockedException(LockedException exception){
+        LOGGER.warn("LockedException:{}",exception.getMessage());
+        return UnifiedResultBuilder.errorResult(Constants.USER_LOCKED_ERROR_CODE, Constants.USER_LOCKED_ERROR_MESSAGE);
+    }
 
     @ExceptionHandler(BadCredentialsException.class)
     public Object handleBadCredentialsException(BadCredentialsException exception){

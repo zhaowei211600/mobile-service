@@ -19,7 +19,8 @@ public class UserFactory {
                 user.getId(),
                 user.getPhone(),
                 user.getPassword(),
-                user.getRealName()
+                user.getRealName(),
+                user.getStatus()
         );
     }
 

@@ -61,8 +61,9 @@ public class FileController {
         }
 
         if(Arrays.asList(ALL_FILE_TYPE).contains(fileSuffix)){
-            if(fileService.uploadFile(file, generateFileName(fileSuffix))){
-                return UnifiedResultBuilder.defaultSuccessResult();
+            String fileName = generateFileName(fileSuffix);
+            if(fileService.uploadFile(file, fileName)){
+                return UnifiedResultBuilder.successResult(Constants.SUCCESS_CODE, Constants.SUCCESS_MESSAGE, fileName);
             }
         }
         logger.info("上传文件后缀不合法:{}", file.getOriginalFilename());

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IProductService {
 
-    List<Product> listPublishProduct(ProductListRequest request);
+    List<Product> listProduct(ProductListRequest request);
 
     List<Product> listCheckProduct(ProductListRequest request);
 
@@ -25,5 +25,7 @@ public interface IProductService {
     boolean revokeProduct(Integer productId);
 
     ProductStatResponse statProduct();
+
+    boolean applyProduct(Product product);
 
 }

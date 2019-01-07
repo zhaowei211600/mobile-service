@@ -11,6 +11,8 @@
     <result column="real_name" property="realName" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="product_name" property="productName" jdbcType="TIMESTAMP" />
+    <result column="budget" property="budget" jdbcType="DECIMAL" />
 
   </resultMap>
   <sql id="Base_Column_List" >
@@ -113,7 +115,7 @@
     where id = #{orderId, jdbcType=INTEGER}
   </update>
 
-  <select id="listOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="listOrder" resultMap="BaseResultMap" parameterType="com.third.mobile.bean.request.OrderRequest">
     SELECT
       t1.id ,
       t1.user_id ,
@@ -123,13 +125,28 @@
       t1.update_time ,
       t2.real_name ,
       t2.phone ,
-      t2.register_time
+      t2.register_time ,
+      t3.name product_name ,
+      t3.budget
     FROM
       t_order t1
       LEFT JOIN t_user t2 ON t1.user_id = t2.id
+      LEFT JOIN t_product t3 ON t1.product_id = t3.id
     WHERE 1=1
-    <if test="productId != ''">
+    <if test="productId != null and productId != 0">
        and t1.product_id = #{productId}
     </if>
+    <if test="userId != null and userId != 0">
+       and t1.user_id = #{userId}
+    </if>
+  </select>
+
+  <select id="countOrder" resultType="java.lang.Integer">
+      select count(1) from t_order
+      where product_id = #{productId}
+  </select>
+
+  <select id="findOrder" resultMap="BaseResultMap">
+      select * from t_order where user_id = #{userId} and product_id = #{productId}
   </select>
 </mapper>

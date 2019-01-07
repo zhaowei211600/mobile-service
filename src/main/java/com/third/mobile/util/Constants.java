@@ -67,6 +67,15 @@ public final class Constants {
     public static final String MESSAGE_CODE_WAIT_ERROR_CODE = "11007";
     public static final String MESSAGE_CODE_WAIT_ERROR_MESSAGE = "验证码发送频繁，请5分钟后再次发送";
 
+    public static final String OLD_PASSWORD_FAILED_ERROR_CODE = "11008";
+    public static final String OLD_PASSWORD_FAILED_ERROR_MESSAGE = "原密码错误";
+
+    public static final String ORDER_EXIST_ERROR_CODE = "11009";
+    public static final String ORDER_EXIST_FAILED_ERROR_MESSAGE = "您已申请过该项目，请在订单中查看状态";
+
+    public static final String USER_LOCKED_ERROR_CODE = "11010";
+    public static final String USER_LOCKED_ERROR_MESSAGE = "账号已锁定或待审核";
+
     public class RedisKey{
 
         public static final String OPERATION_REGISTER = "operation_register:";
@@ -83,7 +92,7 @@ public final class Constants {
 
         public static final String WAIT_CHECK = "3";
 
-        public static final String ALREADLY_CHECKED = "4";
+        public static final String ALREADY_CHECKED = "4";
     }
 
     public class OrderState{
@@ -94,7 +103,7 @@ public final class Constants {
 
         public static final String WAIT_CHECK = "3";
 
-        public static final String ALREADLY_CHECKED = "4";
+        public static final String ALREADY_CHECKED = "4";
     }
 
     public class PublishState{

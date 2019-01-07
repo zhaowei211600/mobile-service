@@ -1,6 +1,6 @@
 package com.third.mobile.bean.request;
 
-public class CustomRegisterRequest {
+public class ResetPasswordRequest {
 
     private String phone;
 
@@ -9,11 +9,6 @@ public class CustomRegisterRequest {
     private String passwordAgain;
 
     private String messageCode;
-
-    private String realName;
-
-    private String cardNo;
-
 
     public String getPhone() {
         return phone;
@@ -47,22 +42,6 @@ public class CustomRegisterRequest {
         this.messageCode = messageCode;
     }
 
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    public String getCardNo() {
-        return cardNo;
-    }
-
-    public void setCardNo(String cardNo) {
-        this.cardNo = cardNo;
-    }
-
 
     @Override
     public String toString() {
@@ -71,8 +50,6 @@ public class CustomRegisterRequest {
                 ", password='" + password + '\'' +
                 ", passwordAgain='" + passwordAgain + '\'' +
                 ", messageCode='" + messageCode + '\'' +
-                ", realName='" + realName + '\'' +
-                ", cardNo='" + cardNo + '\'' +
                 '}';
     }
 }

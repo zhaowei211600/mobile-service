@@ -1,5 +1,6 @@
 package com.third.mobile.service.security.user;
 
+import com.third.mobile.util.Constants;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,19 +12,22 @@ public class JwtUser implements UserDetails {
     private final String username;
     private final String password;
     private final String realName;
+    private final String status;
 
 
     public JwtUser(
             Integer id,
             String username,
             String password,
-            String realName
+            String realName,
+            String status
 
     ){
         this.id = id;
         this.username = username;
         this.password = password;
         this.realName = realName;
+        this.status = status;
     }
 
     public Integer getId(){
@@ -55,6 +59,9 @@ public class JwtUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
+        if(status.equals(Constants.UserState.PASSED)){
+            return false;
+        }
         return true;
     }
 

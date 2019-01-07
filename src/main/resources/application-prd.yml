@@ -40,9 +40,16 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
 server:
   port: 8080
+  max-http-header-size: 102400000
+  jetty:
+    max-http-post-size: 102400000
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
 logging:

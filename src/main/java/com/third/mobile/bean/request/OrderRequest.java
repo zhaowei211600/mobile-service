@@ -1,6 +1,6 @@
 package com.third.mobile.bean.request;
 
-public class OperationRoleRequest {
+public class OrderRequest {
 
     private String name;
 
@@ -42,5 +42,13 @@ public class OperationRoleRequest {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
