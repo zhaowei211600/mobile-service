@@ -227,14 +227,14 @@ public class UserController {
             String fileSuffix = cardImgFrontFileName.substring(cardImgFrontFileName.lastIndexOf(".") + 1);
             String fileName = generateFileName(fileSuffix);
             fileService.uploadFile(cardImgFront, fileName);
-            existUser.setCardImgFront(fileSuffix);
+            existUser.setCardImgFront(fileName);
         }
         String cardImgBackFileName = cardImgBack.getOriginalFilename();
         if(!StringUtils.isEmpty(cardImgBackFileName)){
             String fileSuffix = cardImgBackFileName.substring(cardImgBackFileName.lastIndexOf(".") + 1);
             String fileName = generateFileName(fileSuffix);
             fileService.uploadFile(cardImgBack, fileName);
-            existUser.setCardImgBack(fileSuffix);
+            existUser.setCardImgBack(fileName);
         }
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

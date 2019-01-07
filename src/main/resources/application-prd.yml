@@ -5,9 +5,9 @@ spring:
     name: mobile-service
 
   datasource:
-    url: jdbc:mysql://127.0.0.1/enterprise
-    username: root
-    password: Baiwang.12366*24
+    url: jdbc:mysql://rm-2ze5x7mjlu4g13kmv.mysql.rds.aliyuncs.com/enterprise
+    username: find_helper
+    password: qwe123!@#
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       minimum-idle: 5
@@ -46,15 +46,15 @@ spring:
       max-request-size: 5MB
 
 server:
-  port: 8080
+  port: 10002
   max-http-header-size: 102400000
   jetty:
     max-http-post-size: 102400000
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
 logging:
-  path: /Users/zhaowei/
+  path: /home/logs/
 
 
 file:
-  path: /Users/zhaowei/
+  path: /home/logs/

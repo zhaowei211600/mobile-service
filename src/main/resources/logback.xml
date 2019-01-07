@@ -11,7 +11,7 @@
 	<appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--日志文件输出的文件名-->
-			<FileNamePattern>${LOG_PATH}/enterprise-service/enterprise-service.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<FileNamePattern>${LOG_PATH}/mobile-service/mobile-service.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
 			<!--日志文件保留天数-->
 			<MaxHistory>60</MaxHistory>
 			<timeBasedFileNamingAndTriggeringPolicy
