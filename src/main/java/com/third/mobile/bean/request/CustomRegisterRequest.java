@@ -14,6 +14,9 @@ public class CustomRegisterRequest {
 
     private String cardNo;
 
+    private String cardImgFront;
+
+    private String cardImgBack;
 
     public String getPhone() {
         return phone;
@@ -63,6 +66,21 @@ public class CustomRegisterRequest {
         this.cardNo = cardNo;
     }
 
+    public String getCardImgFront() {
+        return cardImgFront;
+    }
+
+    public void setCardImgFront(String cardImgFront) {
+        this.cardImgFront = cardImgFront;
+    }
+
+    public String getCardImgBack() {
+        return cardImgBack;
+    }
+
+    public void setCardImgBack(String cardImgBack) {
+        this.cardImgBack = cardImgBack;
+    }
 
     @Override
     public String toString() {

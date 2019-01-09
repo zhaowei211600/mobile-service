@@ -57,4 +57,4 @@ logging:
 
 
 file:
-  path: /home/logs/
+  path: /home/data/

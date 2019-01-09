@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service("productService")
@@ -81,11 +83,13 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public boolean chooseUser(Integer productId, Integer userId, Integer orderId) {
 
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Product product = productMapper.selectByProductId(productId);
         if(product != null){
             product.setOrderId(orderId);
             product.setOwnerId(userId);
             product.setStatus(Constants.ProductState.ON_DOING);
+            product.setContractTime(format.format(new Date()));
             if(productMapper.updateByPrimaryKeySelective(product) > 0){
                 if(orderMapper.updateOrderStatus(orderId , Constants.OrderState.CHECKED) > 0){
                     return true;

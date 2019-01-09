@@ -59,7 +59,7 @@ public class JwtUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        if(status.equals(Constants.UserState.PASSED)){
+        if(!status.equals(Constants.UserState.PASSED)){
             return false;
         }
         return true;

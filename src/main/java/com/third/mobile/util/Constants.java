@@ -104,6 +104,8 @@ public final class Constants {
         public static final String WAIT_CHECK = "3";
 
         public static final String ALREADY_CHECKED = "4";
+
+        public static final String FAILED = "5";
     }
 
     public class PublishState{

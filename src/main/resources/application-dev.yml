@@ -39,7 +39,7 @@ spring:
         timeout: 10000
 
 server:
-  port: 8081
+  port: 10002
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
 logging:

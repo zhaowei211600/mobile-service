@@ -200,9 +200,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public UnifiedResult userRegister(CustomRegisterRequest request,
-                                      MultipartFile cardImgFront,
-                                      MultipartFile cardImgBack){
+    public UnifiedResult userRegister(CustomRegisterRequest request){
         String redisKey = Constants.RedisKey.USER_REGISTER + request.getPhone();
         if(!request.getMessageCode().equals(stringRedisTemplate.opsForValue().get(redisKey))){
             return UnifiedResultBuilder.errorResult(Constants.MESSAGE_CODE_ERROR_CODE,
@@ -222,20 +220,22 @@ public class UserController {
 
         //上传文件
         //未匹配出实际的格式
-        String cardImgFrontFileName = cardImgFront.getOriginalFilename();
+        /*String cardImgFrontFileName = cardImgFront.getOriginalFilename();
         if(!StringUtils.isEmpty(cardImgFrontFileName)){
             String fileSuffix = cardImgFrontFileName.substring(cardImgFrontFileName.lastIndexOf(".") + 1);
-            String fileName = generateFileName(fileSuffix);
+            String fileName = "user_front_" + request.getPhone() +"." + fileSuffix ;
             fileService.uploadFile(cardImgFront, fileName);
             existUser.setCardImgFront(fileName);
         }
         String cardImgBackFileName = cardImgBack.getOriginalFilename();
         if(!StringUtils.isEmpty(cardImgBackFileName)){
             String fileSuffix = cardImgBackFileName.substring(cardImgBackFileName.lastIndexOf(".") + 1);
-            String fileName = generateFileName(fileSuffix);
+            String fileName = "user_back_" + request.getPhone() +"." + fileSuffix ;
             fileService.uploadFile(cardImgBack, fileName);
             existUser.setCardImgBack(fileName);
-        }
+        }*/
+        existUser.setCardImgFront(request.getCardImgFront());
+        existUser.setCardImgBack(request.getCardImgBack());
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         final String rawPassword = request.getPassword();
