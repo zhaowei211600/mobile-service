@@ -113,4 +113,14 @@ public class OrderController {
         return UnifiedResultBuilder.errorResult(Constants.CALL_SERVICE_ERROR_CODE,
                 Constants.CALL_SERVICE_ERROR_MESSAGE);
     }
+
+    @RequestMapping("/stat")
+    public UnifiedResult statOrder(@RequestAttribute("username")String phone){
+        User user = userService.findByPhone(phone);
+        if(user != null) {
+            return UnifiedResultBuilder.successResult(Constants.SUCCESS_MESSAGE, orderService.statOrder(user.getId()));
+        }
+        return UnifiedResultBuilder.errorResult(Constants.CALL_SERVICE_ERROR_CODE,
+                Constants.CALL_SERVICE_ERROR_MESSAGE);
+    }
 }

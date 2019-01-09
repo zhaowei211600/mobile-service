@@ -2,6 +2,7 @@ package com.third.mobile.dao;
 
 import com.third.mobile.bean.Order;
 import com.third.mobile.bean.request.OrderRequest;
+import com.third.mobile.bean.response.OrderStatResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -30,4 +31,5 @@ public interface OrderMapper {
     Order findOrder(@Param("productId") Integer productId,
                     @Param("userId") Integer userId);
 
+    OrderStatResponse statOrder(Integer userId);
 }

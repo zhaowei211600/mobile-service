@@ -3,6 +3,7 @@ package com.third.mobile.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.third.mobile.bean.Order;
 import com.third.mobile.bean.request.OrderRequest;
+import com.third.mobile.bean.response.OrderStatResponse;
 import com.third.mobile.dao.OrderMapper;
 import com.third.mobile.service.IOrderService;
 import org.slf4j.Logger;
@@ -42,5 +43,10 @@ public class OrderServiceImpl implements IOrderService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public OrderStatResponse statOrder(Integer userId) {
+        return orderMapper.statOrder(userId);
     }
 }
