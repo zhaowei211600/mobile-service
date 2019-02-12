@@ -6,6 +6,7 @@
     <result column="product_id" property="productId" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="budget" property="budget" jdbcType="DECIMAL" />
+    <result column="expect_cost" property="expectCost" jdbcType="DECIMAL" />
     <result column="real_cost" property="realCost" jdbcType="DECIMAL" />
     <result column="period" property="period" jdbcType="INTEGER" />
     <result column="expect_delivery_time" property="expectDeliveryTime" jdbcType="DATE" />
@@ -24,7 +25,7 @@
     <result column="real_name" property="realName" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, product_id, name, budget, real_cost, period, expect_delivery_time, real_delivery_time,contract_time,
+    id, product_id, name, budget,expect_cost, real_cost, period, expect_delivery_time, real_delivery_time,contract_time,
     `desc`, delivery_desc, check_desc, publish_status, status, owner_id, order_id, create_time, update_time
   </sql>
   <select id="selectByProductId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -33,6 +34,7 @@
       t1.product_id ,
       t1.name ,
       t1.budget ,
+      t1.expect_cost ,
       t1.real_cost ,
       t1.period ,
       t1.expect_delivery_time ,
@@ -88,6 +90,9 @@
       <if test="budget != null" >
         budget,
       </if>
+      <if test="expectCost != null" >
+        expect_cost,
+      </if>
       <if test="realCost != null" >
         real_cost,
       </if>
@@ -137,6 +142,9 @@
       </if>
       <if test="budget != null" >
         #{budget,jdbcType=DECIMAL},
+      </if>
+      <if test="expectCost != null" >
+        #{expectCost,jdbcType=DECIMAL},
       </if>
       <if test="realCost != null" >
         #{realCost,jdbcType=DECIMAL},

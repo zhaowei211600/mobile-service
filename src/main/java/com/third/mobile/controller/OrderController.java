@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -92,7 +93,8 @@ public class OrderController {
      */
     @RequestMapping("/confirm")
     public UnifiedResult confirmOrder(@RequestAttribute("username")String phone,
-                                      Integer productId){
+                                      Integer productId,
+                                      String amount){
 
         Product product = productService.findByProductId(productId);
         User user = userService.findByPhone(phone);
@@ -102,10 +104,13 @@ public class OrderController {
                 return UnifiedResultBuilder.errorResult(Constants.ORDER_EXIST_ERROR_CODE,
                         Constants.ORDER_EXIST_FAILED_ERROR_MESSAGE);
             }
+
+            BigDecimal expectCost = new BigDecimal(amount);
             order = new Order();
             order.setProductId(productId);
             order.setUserId(user.getId());
             order.setStatus(Constants.OrderState.WAIT_CONFIRM);
+            order.setExpectCost(expectCost);
             if(orderService.saveOrder(order)){
                 return UnifiedResultBuilder.defaultSuccessResult();
             }

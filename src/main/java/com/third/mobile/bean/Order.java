@@ -27,6 +27,8 @@ public class Order {
 
     private BigDecimal budget;
 
+    private BigDecimal expectCost;
+
     public Integer getId() {
         return id;
     }
@@ -113,5 +115,13 @@ public class Order {
 
     public void setBudget(BigDecimal budget) {
         this.budget = budget;
+    }
+
+    public BigDecimal getExpectCost() {
+        return expectCost;
+    }
+
+    public void setExpectCost(BigDecimal expectCost) {
+        this.expectCost = expectCost;
     }
 }

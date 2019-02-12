@@ -13,6 +13,8 @@ public class Product {
 
     private BigDecimal budget;
 
+    private BigDecimal expectCost;
+
     private BigDecimal realCost;
 
     private Integer period;
@@ -203,5 +205,13 @@ public class Product {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public BigDecimal getExpectCost() {
+        return expectCost;
+    }
+
+    public void setExpectCost(BigDecimal expectCost) {
+        this.expectCost = expectCost;
     }
 }

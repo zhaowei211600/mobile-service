@@ -65,13 +65,13 @@ public final class Constants {
     public static final String INCONSISTENT_PASSWORD_ERROR_MESSAGE = "两次密码输入不一致";
 
     public static final String MESSAGE_CODE_WAIT_ERROR_CODE = "11007";
-    public static final String MESSAGE_CODE_WAIT_ERROR_MESSAGE = "验证码发送频繁，请5分钟后再次发送";
+    public static final String MESSAGE_CODE_WAIT_ERROR_MESSAGE = "验证码发送频繁,请5分钟后再次发送";
 
     public static final String OLD_PASSWORD_FAILED_ERROR_CODE = "11008";
     public static final String OLD_PASSWORD_FAILED_ERROR_MESSAGE = "原密码错误";
 
     public static final String ORDER_EXIST_ERROR_CODE = "11009";
-    public static final String ORDER_EXIST_FAILED_ERROR_MESSAGE = "您已申请过该项目，请在订单中查看状态";
+    public static final String ORDER_EXIST_FAILED_ERROR_MESSAGE = "您已申请过该项目,请在订单中查看";
 
     public static final String USER_LOCKED_ERROR_CODE = "11010";
     public static final String USER_LOCKED_ERROR_MESSAGE = "账号已锁定或待审核";
