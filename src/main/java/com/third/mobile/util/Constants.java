@@ -129,4 +129,8 @@ public final class Constants {
 
         public static final String STOPED = "3";
     }
+
+    public static final String IMAGE_CODE_PREFIX = "image_code_";
+
+    public static final String MESSAGE_CODE_PREFIX = "message_code_";
 }

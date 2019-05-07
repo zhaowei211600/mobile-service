@@ -37,6 +37,22 @@ spring:
             min-idle: 0
         #连接超时时间
         timeout: 10000
+  mail:
+    default-encoding: UTF-8
+    host: smtp.163.com
+    port: 465
+    username: zhaowei211600@163.com
+    password: 131420.english
+    test-connection: false
+    properties:
+            mail:
+                smtp:
+                  auth: true
+                  starttls:
+                      enable: true
+                  socketFactory:
+                      class: javax.net.ssl.SSLSocketFactory
+
 
 server:
   port: 10002
@@ -47,3 +63,8 @@ logging:
 
 file:
   path: /Users/zhaowei/
+
+admin:
+  email: ruiliqiji2019@126.com
+
+

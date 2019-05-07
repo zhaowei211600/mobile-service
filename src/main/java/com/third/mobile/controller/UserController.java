@@ -32,9 +32,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -69,6 +76,10 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
 
     private static final String LOGIN_REDIS_KEY = "USER_LOGIN_TIME:";
+
+    private static final String IMAGE_CODE_PREFIX = "image_code_";
+
+    private static final String MESSAGE_CODE_PREFIX = "message_code_";
 
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -351,4 +362,6 @@ public class UserController {
         String random = ""+rad.nextInt(10)+rad.nextInt(10);
         return "user_"  + time + random + "." +fileSuffix;
     }
+
+
 }

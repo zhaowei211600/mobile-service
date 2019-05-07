@@ -37,10 +37,10 @@
         </javaClientGenerator>
 
         <!-- !!!! Table Configurations !!!! -->
-        <table tableName="t_operation_user_role" enableCountByExample="false" enableDeleteByExample="false"
+        <table tableName="t_attachment" enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false"
                enableUpdateByExample="false"
-               domainObjectName="OperationUserRole"/>
+               domainObjectName="Attachment"/>
 
         <!--<table tableName="t_order" enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false"

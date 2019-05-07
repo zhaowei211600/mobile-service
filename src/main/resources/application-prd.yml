@@ -5,9 +5,9 @@ spring:
     name: mobile-service
 
   datasource:
-    url: jdbc:mysql://rm-2ze5x7mjlu4g13kmv.mysql.rds.aliyuncs.com/enterprise
-    username: find_helper
-    password: qwe123!@#
+    url: jdbc:mysql://rm-2ze1oiwuqgur01f4q.mysql.rds.aliyuncs.com/enterprise
+    username: zhaobangshou
+    password: 123qweQWE
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       minimum-idle: 5
@@ -37,6 +37,21 @@ spring:
             min-idle: 0
         #连接超时时间
         timeout: 10000
+  mail:
+      default-encoding: UTF-8
+      host: smtp.163.com
+      port: 465
+      username: zhaowei211600@163.com
+      password: 131420.english
+      test-connection: false
+      properties:
+              mail:
+                  smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+                    socketFactory:
+                        class: javax.net.ssl.SSLSocketFactory
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -50,6 +65,8 @@ server:
   max-http-header-size: 102400000
   jetty:
     max-http-post-size: 102400000
+  tomcat:
+    basedir: /home/logs
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
 logging:
@@ -58,3 +75,6 @@ logging:
 
 file:
   path: /home/data/
+
+admin:
+  email: ruiliqiji2019@126.com

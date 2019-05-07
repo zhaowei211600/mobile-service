@@ -1,9 +1,11 @@
 package com.third.mobile.controller;
 
 
+import com.third.mobile.bean.Attachment;
 import com.third.mobile.bean.response.UnifiedResult;
 import com.third.mobile.bean.response.UnifiedResultBuilder;
 import com.third.mobile.integration.IFileService;
+import com.third.mobile.service.IAttachmentService;
 import com.third.mobile.util.Constants;
 import com.third.mobile.util.ErrorUtil;
 import com.third.mobile.util.FileTypeEnum;
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
 @RestController
@@ -31,6 +34,9 @@ public class FileController {
 
     @Autowired
     private IFileService fileService;
+
+    @Autowired
+    private IAttachmentService attachmentService;
 
     private static final String UPLOAD_FILE_PREFIX = "user_";
 
@@ -79,6 +85,39 @@ public class FileController {
         }
         return UnifiedResultBuilder.errorResult(Constants.EMPTY_DATA_ERROR_CODE, Constants.EMPTY_DATA_ERROR_MESSAGE);
     }
+
+    @RequestMapping("/attachment")
+    public UnifiedResult uploadAttachment(@RequestParam("file") MultipartFile file,
+                                          @RequestParam("productId") int productId) throws IOException {
+
+        logger.info("文件上传大小：{}", file.getSize());
+        String fileSuffix = "";
+
+        //未匹配出实际的格式
+        String originalName = file.getOriginalFilename();
+        if(!StringUtils.isEmpty(originalName)){
+            fileSuffix = originalName.substring(originalName.lastIndexOf(".") + 1);
+        }
+        HashMap<String,String> fileAttr = new HashMap<>(2);
+        String fileName = generateFileName(fileSuffix);
+        if(fileService.uploadFile(file, fileName)){
+            fileAttr.put("fileName", fileName);
+            fileAttr.put("originalName", originalName);
+            Attachment attachment = new Attachment();
+            attachment.setProductId(productId);
+            attachment.setFileName(originalName);
+            attachment.setFilePath(fileName);
+            attachment.setStatus("1");
+            if(attachmentService.saveAttachment(attachment)){
+                return UnifiedResultBuilder.successResult(Constants.SUCCESS_MESSAGE,
+                        fileAttr);
+            }
+        }
+        return UnifiedResultBuilder.errorResult(Constants.FILE_HANDLE_ERROR_CODE,
+                Constants.FILE_HANDLE_ERROR_MESSAGE);
+    }
+
+
 
     private static String generateFileName(String fileSuffix) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
