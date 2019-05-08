@@ -1,6 +1,10 @@
 package com.third.mobile.util;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
 public final class Constants {
 
     public static final String SUCCESS_CODE = "200";
@@ -133,4 +137,14 @@ public final class Constants {
     public static final String IMAGE_CODE_PREFIX = "image_code_";
 
     public static final String MESSAGE_CODE_PREFIX = "message_code_";
+
+    private static final String UPLOAD_FILE_PREFIX = "user_";
+
+    public static String generateFileName(String fileSuffix) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String time = dateFormat.format(new Date());
+        Random rad = new Random();
+        String random = ""+rad.nextInt(10)+rad.nextInt(10);
+        return UPLOAD_FILE_PREFIX  + time + random + "." +fileSuffix;
+    }
 }

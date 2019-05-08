@@ -6,7 +6,7 @@ public class Attachment {
 
     private Integer id;
 
-    private Integer productId;
+    private Integer orderId;
 
     private String fileName;
 
@@ -26,12 +26,12 @@ public class Attachment {
         this.id = id;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public String getFileName() {

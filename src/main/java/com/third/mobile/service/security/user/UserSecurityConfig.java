@@ -81,6 +81,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/verification/**").permitAll()
                 .antMatchers("/user/password/reset").permitAll()
                 .antMatchers("/user/file/upload").permitAll()
+                .antMatchers("/code/image").permitAll()
                 .anyRequest().authenticated();
         // 添加JWT filter
         httpSecurity

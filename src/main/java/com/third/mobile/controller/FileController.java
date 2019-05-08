@@ -1,11 +1,9 @@
 package com.third.mobile.controller;
 
 
-import com.third.mobile.bean.Attachment;
 import com.third.mobile.bean.response.UnifiedResult;
 import com.third.mobile.bean.response.UnifiedResultBuilder;
 import com.third.mobile.integration.IFileService;
-import com.third.mobile.service.IAttachmentService;
 import com.third.mobile.util.Constants;
 import com.third.mobile.util.ErrorUtil;
 import com.third.mobile.util.FileTypeEnum;
@@ -20,11 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/user/file")
@@ -34,11 +28,6 @@ public class FileController {
 
     @Autowired
     private IFileService fileService;
-
-    @Autowired
-    private IAttachmentService attachmentService;
-
-    private static final String UPLOAD_FILE_PREFIX = "user_";
 
     private static final String[] ALL_FILE_TYPE = {"png","jpeg","jpg"};
 
@@ -67,7 +56,7 @@ public class FileController {
         }
 
         if(Arrays.asList(ALL_FILE_TYPE).contains(fileSuffix)){
-            String fileName = generateFileName(fileSuffix);
+            String fileName = Constants.generateFileName(fileSuffix);
             if(fileService.uploadFile(file, fileName)){
                 return UnifiedResultBuilder.successResult(Constants.SUCCESS_CODE, Constants.SUCCESS_MESSAGE, fileName);
             }
@@ -86,9 +75,10 @@ public class FileController {
         return UnifiedResultBuilder.errorResult(Constants.EMPTY_DATA_ERROR_CODE, Constants.EMPTY_DATA_ERROR_MESSAGE);
     }
 
-    @RequestMapping("/attachment")
+    /*@RequestMapping("/attachment")
     public UnifiedResult uploadAttachment(@RequestParam("file") MultipartFile file,
-                                          @RequestParam("productId") int productId) throws IOException {
+                                          @RequestParam("id") int id,
+                                          @RequestParam("")String type) throws IOException {
 
         logger.info("文件上传大小：{}", file.getSize());
         String fileSuffix = "";
@@ -98,33 +88,24 @@ public class FileController {
         if(!StringUtils.isEmpty(originalName)){
             fileSuffix = originalName.substring(originalName.lastIndexOf(".") + 1);
         }
-        HashMap<String,String> fileAttr = new HashMap<>(2);
+        HashMap<String,Object> fileAttr = new HashMap<>(2);
         String fileName = generateFileName(fileSuffix);
         if(fileService.uploadFile(file, fileName)){
             fileAttr.put("fileName", fileName);
             fileAttr.put("originalName", originalName);
             Attachment attachment = new Attachment();
-            attachment.setProductId(productId);
+            attachment.setOrderId(productId);
             attachment.setFileName(originalName);
             attachment.setFilePath(fileName);
             attachment.setStatus("1");
             if(attachmentService.saveAttachment(attachment)){
+                fileAttr.put("attachmentId",attachment.getId());
                 return UnifiedResultBuilder.successResult(Constants.SUCCESS_MESSAGE,
                         fileAttr);
             }
         }
         return UnifiedResultBuilder.errorResult(Constants.FILE_HANDLE_ERROR_CODE,
                 Constants.FILE_HANDLE_ERROR_MESSAGE);
-    }
-
-
-
-    private static String generateFileName(String fileSuffix) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        String time = dateFormat.format(new Date());
-        Random rad = new Random();
-        String random = ""+rad.nextInt(10)+rad.nextInt(10);
-        return UPLOAD_FILE_PREFIX  + time + random + "." +fileSuffix;
-    }
+    }*/
 
 }
