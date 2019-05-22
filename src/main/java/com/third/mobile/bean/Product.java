@@ -17,7 +17,7 @@ public class Product {
 
     private BigDecimal realCost;
 
-    private Integer period;
+    private String period;
 
     private String expectDeliveryTime;
 
@@ -39,13 +39,30 @@ public class Product {
 
     private Integer orderId;
 
-    private String createTime;
+    private Integer userId;
 
-    private String updateTime;
+    private Date createTime;
+
+    private Date updateTime;
 
     private String phone;
 
     private String realName;
+
+    private Integer doingProduct;
+
+    //2019-05-08新增
+    private String type;
+
+    private String attr;
+
+    private String costType;
+
+    private String serviceCost;
+
+    private String detail;
+
+    private String fileNameList;
 
     public Integer getId() {
         return id;
@@ -87,11 +104,11 @@ public class Product {
         this.realCost = realCost;
     }
 
-    public Integer getPeriod() {
+    public String getPeriod() {
         return period;
     }
 
-    public void setPeriod(Integer period) {
+    public void setPeriod(String period) {
         this.period = period;
     }
 
@@ -159,19 +176,19 @@ public class Product {
         this.orderId = orderId;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public String getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -207,11 +224,76 @@ public class Product {
         this.realName = realName;
     }
 
+    public Integer getDoingProduct() {
+        return doingProduct;
+    }
+
+    public void setDoingProduct(Integer doingProduct) {
+        this.doingProduct = doingProduct;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public BigDecimal getExpectCost() {
         return expectCost;
     }
 
     public void setExpectCost(BigDecimal expectCost) {
         this.expectCost = expectCost;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr;
+    }
+
+    public String getCostType() {
+        return costType;
+    }
+
+    public void setCostType(String costType) {
+        this.costType = costType;
+    }
+
+
+    public String getServiceCost() {
+        return serviceCost;
+    }
+
+    public void setServiceCost(String serviceCost) {
+        this.serviceCost = serviceCost;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getFileNameList() {
+        return fileNameList;
+    }
+
+    public void setFileNameList(String fileNameList) {
+        this.fileNameList = fileNameList;
     }
 }

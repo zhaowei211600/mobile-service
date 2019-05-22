@@ -45,7 +45,7 @@ public class RequirementServiceImpl implements IRequirementService {
         paraMap.put("require", requirement);
 
         SimpleMailParam simpleMailParam = new SimpleMailParam();
-        simpleMailParam.setSubject(requirement.getTitle());
+        simpleMailParam.setSubject("我要找帮手客户需求");
         String content = FreemarkerUtil.fillContent("message.html",paraMap);
         simpleMailParam.setContent(content);
         simpleMailParam.setToAddress(adminEmail);

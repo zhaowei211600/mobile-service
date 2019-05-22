@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 @Service("fileService")
@@ -38,6 +39,20 @@ public class FileServiceImpl implements IFileService{
             byte[] fileContent = LocalFileUtil.getFileBytes(localFilePath, fileName);
             if(fileContent != null){
                 return Base64.encodeBase64String(fileContent);
+            }
+        } catch (IOException e) {
+            logger.error("文件下载失败：{}", ErrorUtil.getErrorStackInfo(e));
+        }
+        return null;
+    }
+
+    @Override
+    public ByteArrayInputStream download(String fileName) {
+
+        try {
+            byte[] fileContent = LocalFileUtil.getFileBytes(localFilePath, fileName);
+            if(fileContent != null){
+                return new ByteArrayInputStream(fileContent);
             }
         } catch (IOException e) {
             logger.error("文件下载失败：{}", ErrorUtil.getErrorStackInfo(e));

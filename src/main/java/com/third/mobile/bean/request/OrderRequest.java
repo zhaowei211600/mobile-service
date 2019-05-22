@@ -8,6 +8,8 @@ public class OrderRequest {
 
     private Integer userId;
 
+    private String status;
+
     private Integer pageNum = 1;
 
     private Integer pageSize = 10;
@@ -50,5 +52,13 @@ public class OrderRequest {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -91,7 +91,7 @@ public class ProductServiceImpl implements IProductService{
             product.setStatus(Constants.ProductState.ON_DOING);
             product.setContractTime(format.format(new Date()));
             if(productMapper.updateByPrimaryKeySelective(product) > 0){
-                if(orderMapper.updateOrderStatus(orderId , Constants.OrderState.CHECKED) > 0){
+                if(orderMapper.updateOrderStatus(orderId , Constants.OrderState.ON_DOING) > 0){
                     return true;
                 }
             }
@@ -119,9 +119,10 @@ public class ProductServiceImpl implements IProductService{
     @Transactional(rollbackFor = Exception.class)
     public boolean applyProduct(Product product) {
         if(productMapper.updateByPrimaryKeySelective(product) > 0){
-            if(orderMapper.updateOrderStatus(product.getOrderId(), Constants.OrderState.WAIT_CHECK) > 0){
+            /*if(orderMapper.updateOrderStatus(product.getOrderId(), Constants.OrderState.ON_DOING) > 0){
                 return true;
-            }
+            }*/
+            return true;
         }
         return false;
     }

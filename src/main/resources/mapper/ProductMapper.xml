@@ -23,10 +23,17 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="phone" property="phone" jdbcType="VARCHAR"/>
     <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="attr" property="attr" jdbcType="VARCHAR" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="service_cost" property="serviceCost" jdbcType="VARCHAR" />
+    <result column="cost_type" property="costType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, product_id, name, budget,expect_cost, real_cost, period, expect_delivery_time, real_delivery_time,contract_time,
-    `desc`, delivery_desc, check_desc, publish_status, status, owner_id, order_id, create_time, update_time
+    `desc`, delivery_desc, check_desc, publish_status, status, owner_id, order_id, create_time, update_time,
+    type, attr, detail, service_cost, cost_type
   </sql>
   <select id="selectByProductId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
@@ -49,6 +56,11 @@
       t1.order_id ,
       t1.create_time ,
       t1.update_time ,
+    t1.type,
+    t1.attr,
+    t1.detail,
+    t1.service_cost,
+    t1.cost_type,
       t2.phone ,
       t2.real_name
     from t_product t1
@@ -56,25 +68,6 @@
     on t1.owner_id = t2.id
     where t1.id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_product
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.third.mobile.bean.Product" >
-    insert into t_product (id, product_id, name,
-      budget, real_cost, period, 
-      expect_delivery_time, real_delivery_time,contract_time, `desc`,
-      delivery_desc,check_desc, publish_status, status,
-      owner_id, order_id, create_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{budget,jdbcType=DECIMAL}, #{realCost,jdbcType=DECIMAL}, #{period,jdbcType=INTEGER}, 
-      #{expectDeliveryTime,jdbcType=DATE}, #{realDeliveryTime,jdbcType=DATE},
-      #{contractTime,jdbcType=DATE},#{desc,jdbcType=VARCHAR}, #{deliveryDesc,jdbcType=VARCHAR},
-      #{checkDesc,jdbcType=VARCHAR}, #{publishStatus,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
-      #{ownerId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
   <insert id="insertSelective" parameterType="com.third.mobile.bean.Product" >
     insert into t_product
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -129,6 +122,22 @@
       <if test="updateTime != null" >
         update_time,
       </if>
+
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="attr != null" >
+        attr,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="serviceCost != null" >
+        service_cost,
+      </if>
+      <if test="costType != null" >
+        cost_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -182,6 +191,22 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="attr != null" >
+        #{attr,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCost != null" >
+        #{serviceCost,jdbcType=VARCHAR},
+      </if>
+      <if test="costType != null" >
+        #{costType,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.Product" >
@@ -232,28 +257,23 @@
       <if test="orderId != null" >
         order_id = #{orderId,jdbcType=INTEGER},
       </if>
+
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="attr != null" >
+        attr = #{attr,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCost != null" >
+        service_cost = #{serviceCost,jdbcType=VARCHAR},
+      </if>
+      <if test="costType != null" >
+        cost_type = #{costType,jdbcType=VARCHAR},
+      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.Product" >
-    update t_product
-    set product_id = #{productId,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      budget = #{budget,jdbcType=DECIMAL},
-      real_cost = #{realCost,jdbcType=DECIMAL},
-      period = #{period,jdbcType=INTEGER},
-      expect_delivery_time = #{expectDeliveryTime,jdbcType=DATE},
-      real_delivery_time = #{realDeliveryTime,jdbcType=DATE},
-      contract_time = #{contractTime,jdbcType=DATE},
-      desc = #{desc,jdbcType=VARCHAR},
-      delivery_desc = #{deliveryDesc,jdbcType=VARCHAR},
-      check_desc = #{checkDesc,jdbcType=VARCHAR},
-      publish_status = #{publishStatus,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      owner_id = #{ownerId,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

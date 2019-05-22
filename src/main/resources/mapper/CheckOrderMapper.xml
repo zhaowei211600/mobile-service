@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.third.mobile.dao.OrderMapper" >
-  <resultMap id="BaseResultMap" type="com.third.mobile.bean.Order" >
+<mapper namespace="com.third.mobile.dao.CheckOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.third.mobile.bean.CheckOrder" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="finish_desc" property="finishDesc" jdbcType="VARCHAR" />
+    <result column="audit_desc" property="auditDesc" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
     <result column="real_name" property="realName" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
-    <result column="product_name" property="productName" jdbcType="TIMESTAMP" />
-    <result column="budget" property="budget" jdbcType="DECIMAL" />
-    <result column="expect_cost" property="expectCost" jdbcType="DECIMAL" />
-
+    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
 
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, product_id,expect_cost, status, create_time, update_time
+    id, user_id, product_id, order_id, status, finish_desc, audit_desc, create_time,
+    update_time, amount, auditor
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />
-    from t_order
+    from t_check_order
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_order
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.third.mobile.bean.Order" >
-    insert into t_order (id, user_id, product_id,
-      status, create_time, update_time
+  <insert id="insert" parameterType="com.third.mobile.bean.CheckOrder" >
+    insert into t_check_order (id, user_id, product_id,
+      order_id, status, finish_desc, 
+      audit_desc, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
-      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{orderId,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{finishDesc,jdbcType=VARCHAR}, 
+      #{auditDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.third.mobile.bean.Order" >
-    insert into t_order
+  <insert id="insertSelective" parameterType="com.third.mobile.bean.CheckOrder" >
+    insert into t_check_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -50,17 +49,26 @@
       <if test="productId != null" >
         product_id,
       </if>
-      <if test="expectCost != null" >
-        expect_cost,
+      <if test="orderId != null" >
+        order_id,
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="finishDesc != null" >
+        finish_desc,
+      </if>
+      <if test="auditDesc != null" >
+        audit_desc,
       </if>
       <if test="createTime != null" >
         create_time,
       </if>
       <if test="updateTime != null" >
         update_time,
+      </if>
+      <if test="auditor != null" >
+        auditor,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -73,11 +81,17 @@
       <if test="productId != null" >
         #{productId,jdbcType=INTEGER},
       </if>
-      <if test="expectCost != null" >
-        #{expectCost,jdbcType=DECIMAL},
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="finishDesc != null" >
+        #{finishDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDesc != null" >
+        #{auditDesc,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -85,10 +99,13 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.Order" >
-    update t_order
+  <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.CheckOrder" >
+    update t_check_order
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
@@ -96,8 +113,17 @@
       <if test="productId != null" >
         product_id = #{productId,jdbcType=INTEGER},
       </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="finishDesc != null" >
+        finish_desc = #{finishDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDesc != null" >
+        audit_desc = #{auditDesc,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -105,72 +131,31 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.Order" >
-    update t_order
+  <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.CheckOrder" >
+    update t_check_order
     set user_id = #{userId,jdbcType=INTEGER},
       product_id = #{productId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
       status = #{status,jdbcType=VARCHAR},
+      finish_desc = #{finishDesc,jdbcType=VARCHAR},
+      audit_desc = #{auditDesc,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateOrderStatus">
-    update t_order
-    set status = #{status, jdbcType=VARCHAR}
-    where id = #{orderId, jdbcType=INTEGER}
-  </update>
 
-  <select id="listOrder" resultMap="BaseResultMap" parameterType="com.third.mobile.bean.request.OrderRequest">
-    SELECT
-      t1.id ,
-      t1.user_id ,
-      t1.product_id ,
-      t1.status ,
-      t1.create_time ,
-      t1.update_time ,
-      t2.real_name ,
-      t2.phone ,
-      t2.register_time ,
-      t3.name product_name ,
-      t3.budget
-    FROM
-      t_order t1
-      LEFT JOIN t_user t2 ON t1.user_id = t2.id
-      LEFT JOIN t_product t3 ON t1.product_id = t3.id
-    WHERE 1=1
-    <if test="productId != null and productId != 0">
-       and t1.product_id = #{productId}
-    </if>
-    <if test="userId != null and userId != 0">
-       and t1.user_id = #{userId}
-    </if>
-    <if test="status != null and status != ''">
-      and t1.status = #{status}
-    </if>
-  </select>
-
-  <select id="countOrder" resultType="java.lang.Integer">
-      select count(1) from t_order
-      where product_id = #{productId}
-  </select>
-
-  <select id="findOrder" resultMap="BaseResultMap">
-      select * from t_order where user_id = #{userId} and product_id = #{productId}
-  </select>
-
-  <select id="statOrder" resultType="com.third.mobile.bean.response.OrderStatResponse">
-    select count(1) totalCount,
-           ifnull(max(finishAmount),0) finishAmount
-    from t_order t1
-    left join (
-                  select order_id,sum(amount) as finishAmount from t_check_order
-                  where status = '4'
-                  group by order_id
-                ) t2
-    on t1.id = t2.order_id
-    where t1.user_id = #{userId}
+  <select id="hasOpenCheckOrder" resultType="java.lang.Integer">
+    select count(1) from t_check_order
+    where order_id = #{orderId,jdbcType=INTEGER} and
+    status = '1'
   </select>
 </mapper>

@@ -13,11 +13,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 
 @RestController
@@ -108,4 +113,39 @@ public class FileController {
                 Constants.FILE_HANDLE_ERROR_MESSAGE);
     }*/
 
+    @RequestMapping(value = "/stream", method = RequestMethod.GET)
+    public void fileDownload(String fileName, HttpServletResponse res) throws Exception {
+
+        ByteArrayInputStream byteArrayInputStream =  fileService.download(fileName);
+        if(byteArrayInputStream != null){
+            String suffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+            String downloadFile = System.currentTimeMillis() + "." + suffix;
+            res.setHeader("content-type", "application/octet-stream");
+            res.setContentType("application/octet-stream");
+            res.setHeader("Content-Disposition", "attachment;filename=" + downloadFile);
+            byte[] buff = new byte[1024];
+            BufferedInputStream bis = null;
+            OutputStream os = null;
+            try {
+                os = res.getOutputStream();
+                bis = new BufferedInputStream(byteArrayInputStream);
+                int i = bis.read(buff);
+                while (i != -1) {
+                    os.write(buff, 0, buff.length);
+                    os.flush();
+                    i = bis.read(buff);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 }

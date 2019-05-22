@@ -49,11 +49,11 @@ public class OrderController {
     }
 
     @RequestMapping("/user")
-    public UnifiedResult userOrder(@RequestAttribute("username")String phone){
+    public UnifiedResult userOrder(OrderRequest request,
+                                   @RequestAttribute("username")String phone){
 
         User user = userService.findByPhone(phone);
         if(user != null){
-            OrderRequest request = new OrderRequest();
             request.setUserId(user.getId());
             List<Order> orderList = orderService.listOrder(request);
             if(orderList != null && orderList.size() > 0){
