@@ -54,7 +54,6 @@ spring:
                         class: javax.net.ssl.SSLSocketFactory
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
   servlet:
     multipart:
       max-file-size: 5MB

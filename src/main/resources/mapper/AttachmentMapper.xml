@@ -3,7 +3,7 @@
 <mapper namespace="com.third.mobile.dao.AttachmentMapper" >
   <resultMap id="BaseResultMap" type="com.third.mobile.bean.Attachment" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="check_order_id" property="checkOrderId" jdbcType="INTEGER" />
     <result column="file_name" property="fileName" jdbcType="VARCHAR" />
     <result column="file_path" property="filePath" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
@@ -11,7 +11,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, order_id, file_name, file_path, status, create_time, update_time
+    id, check_order_id, file_name, file_path, status, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
@@ -24,10 +24,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.third.mobile.bean.Attachment" >
-    insert into t_attachment (id, order_id, file_name,
+    insert into t_attachment (id, check_order_id, file_name,
       file_path, status, create_time, 
       update_time)
-    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{checkOrderId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR},
       #{filePath,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -38,8 +38,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="orderId != null" >
-        order_id,
+      <if test="checkOrderId != null" >
+        check_order_id,
       </if>
       <if test="fileName != null" >
         file_name,
@@ -61,8 +61,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="orderId != null" >
-        #{orderId,jdbcType=INTEGER},
+      <if test="checkOrderId != null" >
+        #{checkOrderId,jdbcType=INTEGER},
       </if>
       <if test="fileName != null" >
         #{fileName,jdbcType=VARCHAR},
@@ -84,8 +84,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.Attachment" >
     update t_attachment
     <set >
-      <if test="orderId != null" >
-        order_id = #{orderId,jdbcType=INTEGER},
+      <if test="checkOrderId != null" >
+        check_order_id = #{checkOrderId,jdbcType=INTEGER},
       </if>
       <if test="fileName != null" >
         file_name = #{fileName,jdbcType=VARCHAR},
@@ -107,7 +107,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.Attachment" >
     update t_attachment
-    set order_id = #{orderId,jdbcType=INTEGER},
+    set check_order_id = #{checkOrderId,jdbcType=INTEGER},
       file_name = #{fileName,jdbcType=VARCHAR},
       file_path = #{filePath,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
@@ -121,8 +121,8 @@
     <include refid="Base_Column_List" />
     from t_attachment
     where 1=1 and status = 1
-    <if test="orderId != null">
-      and order_id = #{orderId}
+    <if test="checkOrderId != null">
+      and check_order_id = #{checkOrderId}
     </if>
   </select>
 </mapper>

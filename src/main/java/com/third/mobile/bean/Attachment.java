@@ -6,7 +6,7 @@ public class Attachment {
 
     private Integer id;
 
-    private Integer orderId;
+    private Integer checkOrderId;
 
     private String fileName;
 
@@ -24,14 +24,6 @@ public class Attachment {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
     }
 
     public String getFileName() {
@@ -72,5 +64,13 @@ public class Attachment {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getCheckOrderId() {
+        return checkOrderId;
+    }
+
+    public void setCheckOrderId(Integer checkOrderId) {
+        this.checkOrderId = checkOrderId;
     }
 }

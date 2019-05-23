@@ -1,29 +1,21 @@
 package com.third.mobile.bean.request;
 
-public class AttachmentListRequest {
+public class CheckOrderListRequest {
 
-    private Integer userId;
+    private Integer orderId;
 
-    private Integer checkOrderId;
+    private String status;
 
     private Integer pageNum = 1;
 
     private Integer pageSize = 10;
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getCheckOrderId() {
-        return checkOrderId;
-    }
-
-    public void setCheckOrderId(Integer checkOrderId) {
-        this.checkOrderId = checkOrderId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getPageNum() {
@@ -40,5 +32,13 @@ public class AttachmentListRequest {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

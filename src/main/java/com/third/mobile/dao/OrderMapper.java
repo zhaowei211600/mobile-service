@@ -32,4 +32,6 @@ public interface OrderMapper {
                     @Param("userId") Integer userId);
 
     OrderStatResponse statOrder(Integer userId);
+
+    Order selectById(Integer orderId);
 }

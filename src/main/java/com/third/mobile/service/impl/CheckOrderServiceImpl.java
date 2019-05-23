@@ -2,6 +2,7 @@ package com.third.mobile.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.third.mobile.bean.CheckOrder;
+import com.third.mobile.bean.request.CheckOrderListRequest;
 import com.third.mobile.dao.CheckOrderMapper;
 import com.third.mobile.service.ICheckOrderService;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ public class CheckOrderServiceImpl implements ICheckOrderService {
 
     @Override
     public CheckOrder selectById(Integer checkOrderId) {
-        return checkOrderMapper.selectByPrimaryKey(checkOrderId);
+        return checkOrderMapper.selectById(checkOrderId);
     }
 
     @Override
@@ -46,5 +47,11 @@ public class CheckOrderServiceImpl implements ICheckOrderService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<CheckOrder> getCheckOrderList(CheckOrderListRequest request) {
+        PageHelper.startPage(request.getPageNum(), request.getPageSize());
+        return checkOrderMapper.getCheckOrderList(request);
     }
 }

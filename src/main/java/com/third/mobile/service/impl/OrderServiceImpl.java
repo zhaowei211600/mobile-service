@@ -49,4 +49,9 @@ public class OrderServiceImpl implements IOrderService{
     public OrderStatResponse statOrder(Integer userId) {
         return orderMapper.statOrder(userId);
     }
+
+    @Override
+    public Order selectById(Integer orderId) {
+        return orderMapper.selectById(orderId);
+    }
 }

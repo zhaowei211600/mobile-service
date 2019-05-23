@@ -15,6 +15,7 @@
     <result column="real_name" property="realName" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
 
   </resultMap>
   <sql id="Base_Column_List" >
@@ -29,11 +30,11 @@
   </select>
   <insert id="insert" parameterType="com.third.mobile.bean.CheckOrder" >
     insert into t_check_order (id, user_id, product_id,
-      order_id, status, finish_desc, 
+      order_id, status, finish_desc,
       audit_desc, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
-      #{orderId,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{finishDesc,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{finishDesc,jdbcType=VARCHAR},
       #{auditDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -157,5 +158,28 @@
     select count(1) from t_check_order
     where order_id = #{orderId,jdbcType=INTEGER} and
     status = '1'
+  </select>
+
+  <select id="getCheckOrderList" resultMap="BaseResultMap"
+          parameterType="com.third.mobile.bean.request.CheckOrderListRequest">
+    select
+        <include refid="Base_Column_List" />
+    from t_check_order
+    where 1=1
+    <if test="orderId != null and orderId != 0" >
+      and order_id = #{orderId,jdbcType=INTEGER}
+    </if>
+    <if test="status != null and status != ''" >
+      and status = #{status,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectById" resultMap="BaseResultMap">
+      select t1.*,
+            t2.name product_name
+      from t_check_order t1
+      left join t_product t2
+      on t1.product_id = t2.id
+      where t1.id = #{id}
   </select>
 </mapper>

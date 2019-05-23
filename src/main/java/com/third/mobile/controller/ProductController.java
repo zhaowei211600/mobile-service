@@ -130,11 +130,13 @@ public class ProductController {
     }
 
     @PostMapping("/find")
-    public UnifiedResult findProduct(Integer productId){
+    public UnifiedResult findProduct(Integer productId,
+                                     @RequestAttribute("username")String phone){
 
         Product product = productService.findByProductId(productId);
         if(product != null){
-                return UnifiedResultBuilder.successResult(Constants.SUCCESS_MESSAGE, product);
+            product.setPhone(phone);
+            return UnifiedResultBuilder.successResult(Constants.SUCCESS_MESSAGE, product);
         }
         return UnifiedResultBuilder.errorResult(Constants.EMPTY_DATA_ERROR_CODE,
                 Constants.EMPTY_DATA_ERROR_MESSAGE);
@@ -205,7 +207,12 @@ public class ProductController {
             //项目已关闭，无法再提交验收
             if("3".equals(product.getStatus())){
                 return UnifiedResultBuilder.successResult(Constants.PRODUCT_STATE_ERROR_CODE,
-                        Constants.PRODUCT_STATE_ERROR_MESSAGE);
+                        "项目已关闭，无法再提交验收");
+            }
+            //项目接单未确认，不能申请
+            if("1".equals(product.getStatus())){
+                return UnifiedResultBuilder.successResult(Constants.PRODUCT_WAIT_ERROR_CODE,
+                        "接单待确认，无法申请结项！");
             }
             CheckOrder checkOrder = new CheckOrder();
             checkOrder.setUserId(user.getId());

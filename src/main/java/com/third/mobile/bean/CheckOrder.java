@@ -27,6 +27,8 @@ public class CheckOrder {
 
     private String auditor;
 
+    private String productName;
+
     private Date createTime;
 
     private Date updateTime;
@@ -133,5 +135,13 @@ public class CheckOrder {
 
     public void setAuditor(String auditor) {
         this.auditor = auditor;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

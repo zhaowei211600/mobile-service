@@ -2,6 +2,9 @@ package com.third.mobile.dao;
 
 
 import com.third.mobile.bean.CheckOrder;
+import com.third.mobile.bean.request.CheckOrderListRequest;
+
+import java.util.List;
 
 
 public interface CheckOrderMapper {
@@ -19,4 +22,7 @@ public interface CheckOrderMapper {
 
     int hasOpenCheckOrder(Integer orderId);
 
+    List<CheckOrder> getCheckOrderList(CheckOrderListRequest request);
+
+    CheckOrder selectById(Integer checkOrderId);
 }

@@ -17,4 +17,6 @@ public interface IOrderService {
     boolean saveOrder(Order order);
 
     OrderStatResponse statOrder(Integer userId);
+
+    Order selectById(Integer orderId);
 }

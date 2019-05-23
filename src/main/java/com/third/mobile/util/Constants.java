@@ -47,6 +47,9 @@ public final class Constants {
     public static final String PRODUCT_STATE_ERROR_CODE = "10008";
     public static final String PRODUCT_STATE_ERROR_MESSAGE = "项目状态不正确";
 
+    public static final String PRODUCT_WAIT_ERROR_CODE = "10009";
+    public static final String PRODUCT_WAIT_ERROR_MESSAGE = "项目状态不正确";
+
     public static final String FILE_HANDLE_ERROR_CODE = "10009";
     public static final String FILE_HANDLE_ERROR_MESSAGE = "文件处理失败";
 
