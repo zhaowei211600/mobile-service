@@ -123,7 +123,7 @@ public class CodeController {
     public UnifiedResult userVerification(String phone, String imageCode){
 
         String imageCodeRedisKey = Constants.IMAGE_CODE_PREFIX + imageCode.toUpperCase();
-        if(!imageCode.toUpperCase().equals(stringRedisTemplate.opsForValue().get(imageCodeRedisKey))){
+        if(!StringUtils.isEmpty(imageCode) && !imageCode.toUpperCase().equals(stringRedisTemplate.opsForValue().get(imageCodeRedisKey))){
             return UnifiedResultBuilder.errorResult(Constants.PARAMETER_NOT_VALID_ERROR_CODE,"图形验证码错误");
         }
         if (StringUtils.isEmpty(phone)) {

@@ -5,6 +5,7 @@ import com.third.mobile.bean.Order;
 import com.third.mobile.bean.request.CheckOrderListRequest;
 import com.third.mobile.bean.response.UnifiedResult;
 import com.third.mobile.bean.response.UnifiedResultBuilder;
+import com.third.mobile.service.GenerateProductNumberService;
 import com.third.mobile.service.ICheckOrderService;
 import com.third.mobile.service.IOrderService;
 import com.third.mobile.util.Constants;
@@ -12,6 +13,7 @@ import com.third.mobile.util.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -28,6 +30,9 @@ public class CheckOrderController {
 
     @Autowired
     private IOrderService orderService;
+
+    @Autowired
+    private GenerateProductNumberService numberService;
 
     @PostMapping("/detail")
     public UnifiedResult checkDetail(Integer checkOrderId, Integer orderId){
@@ -63,4 +68,15 @@ public class CheckOrderController {
                 Constants.EMPTY_DATA_ERROR_MESSAGE);
     }
 
+    @PostMapping("/number")
+    public UnifiedResult getCheckOrderNumber(){
+        String checkOrderNumber = numberService.generateCheckOrderNumber();
+        if(!StringUtils.isEmpty(checkOrderNumber)){
+            return UnifiedResultBuilder.successResult(Constants.SUCCESS_CODE,
+                    Constants.SUCCESS_MESSAGE,
+                    checkOrderNumber);
+        }
+        return UnifiedResultBuilder.errorResult(Constants.EMPTY_DATA_ERROR_CODE,
+                Constants.EMPTY_DATA_ERROR_MESSAGE);
+    }
 }

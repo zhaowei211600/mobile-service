@@ -17,7 +17,9 @@ public class Product {
 
     private BigDecimal realCost;
 
-    private String period;
+    private String periodStart;
+
+    private String periodEnd;
 
     private String expectDeliveryTime;
 
@@ -104,12 +106,20 @@ public class Product {
         this.realCost = realCost;
     }
 
-    public String getPeriod() {
-        return period;
+    public String getPeriodStart() {
+        return periodStart;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
+    public void setPeriodStart(String periodStart) {
+        this.periodStart = periodStart;
+    }
+
+    public String getPeriodEnd() {
+        return periodEnd;
+    }
+
+    public void setPeriodEnd(String periodEnd) {
+        this.periodEnd = periodEnd;
     }
 
     public String getExpectDeliveryTime() {

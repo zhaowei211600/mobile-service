@@ -8,7 +8,9 @@
     <result column="budget" property="budget" jdbcType="DECIMAL" />
     <result column="expect_cost" property="expectCost" jdbcType="DECIMAL" />
     <result column="real_cost" property="realCost" jdbcType="DECIMAL" />
-    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="period_start" property="periodStart" jdbcType="INTEGER" />
+    <result column="period_end" property="periodEnd" jdbcType="INTEGER" />
+
     <result column="expect_delivery_time" property="expectDeliveryTime" jdbcType="DATE" />
     <result column="real_delivery_time" property="realDeliveryTime" jdbcType="DATE" />
     <result column="contract_time" property="contractTime" jdbcType="DATE" />
@@ -31,7 +33,7 @@
     <result column="cost_type" property="costType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, product_id, name, budget,expect_cost, real_cost, period, expect_delivery_time, real_delivery_time,contract_time,
+    id, product_id, name, budget,expect_cost, real_cost, period_start,period_end, expect_delivery_time, real_delivery_time,contract_time,
     `desc`, delivery_desc, check_desc, publish_status, status, owner_id, order_id, create_time, update_time,
     type, attr, detail, service_cost, cost_type
   </sql>
@@ -43,7 +45,8 @@
       t1.budget ,
       t1.expect_cost ,
       t1.real_cost ,
-      t1.period ,
+      t1.period_start ,
+      t1.period_end ,
       t1.expect_delivery_time ,
       t1.real_delivery_time ,
       t1.contract_time ,
@@ -89,8 +92,11 @@
       <if test="realCost != null" >
         real_cost,
       </if>
-      <if test="period != null" >
-        period,
+      <if test="periodStart != null" >
+        period_start,
+      </if>
+      <if test="periodEnd != null" >
+        period_end,
       </if>
       <if test="expectDeliveryTime != null" >
         expect_delivery_time,
@@ -158,8 +164,11 @@
       <if test="realCost != null" >
         #{realCost,jdbcType=DECIMAL},
       </if>
-      <if test="period != null" >
-        #{period,jdbcType=INTEGER},
+      <if test="periodStart != null" >
+        #{periodStart,jdbcType=INTEGER},
+      </if>
+      <if test="periodEnd != null" >
+        #{periodEnd,jdbcType=INTEGER},
       </if>
       <if test="expectDeliveryTime != null" >
         #{expectDeliveryTime,jdbcType=DATE},
@@ -224,8 +233,11 @@
       <if test="realCost != null" >
         real_cost = #{realCost,jdbcType=DECIMAL},
       </if>
-      <if test="period != null" >
-        period = #{period,jdbcType=INTEGER},
+      <if test="periodStart != null" >
+        period_start = #{periodStart,jdbcType=INTEGER},
+      </if>
+      <if test="periodEnd != null" >
+        period_end = #{periodEnd,jdbcType=INTEGER},
       </if>
       <if test="expectDeliveryTime != null" >
         expect_delivery_time = #{expectDeliveryTime,jdbcType=DATE},

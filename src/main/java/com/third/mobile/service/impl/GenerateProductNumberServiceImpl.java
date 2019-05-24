@@ -23,6 +23,10 @@ public class GenerateProductNumberServiceImpl implements GenerateProductNumberSe
 
     private static final String PRODUCT_NUMBER_REDIS_KEY = "product_number:";
 
+    private static final String CHECK_ORDER_NUMBER_PREFIX = "CN";
+
+    private static final String CHECK_ORDER_NUMBER_REDIS_KEY = "check_order_number:";
+
     @Override
     public String generateProductNumberNumber() {
 
@@ -34,6 +38,19 @@ public class GenerateProductNumberServiceImpl implements GenerateProductNumberSe
         StringBuffer sb = new StringBuffer();
         sb.append(PRODUCT_NUMBER_PREFIX).append(current).append(assetNumber);
         LOGGER.info("正在生成资产编号：{}", sb.toString());
+        return sb.toString();
+    }
+
+    @Override
+    public String generateCheckOrderNumber() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        String current = simpleDateFormat.format(new Date());
+        ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+        Long serialNumber = valueOperations.increment(CHECK_ORDER_NUMBER_PREFIX, 1);
+        String assetNumber = String.format("%08d", serialNumber);
+        StringBuffer sb = new StringBuffer();
+        sb.append(CHECK_ORDER_NUMBER_REDIS_KEY).append(current).append(assetNumber);
+        LOGGER.info("正在生成验收编号编号：{}", sb.toString());
         return sb.toString();
     }
 }

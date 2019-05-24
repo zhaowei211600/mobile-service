@@ -10,6 +10,8 @@ public class CustomRegisterRequest {
 
     private String messageCode;
 
+    private String imageCode;
+
     private String realName;
 
     private String cardNo;
@@ -80,6 +82,14 @@ public class CustomRegisterRequest {
 
     public void setCardImgBack(String cardImgBack) {
         this.cardImgBack = cardImgBack;
+    }
+
+    public String getImageCode() {
+        return imageCode;
+    }
+
+    public void setImageCode(String imageCode) {
+        this.imageCode = imageCode;
     }
 
     @Override

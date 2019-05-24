@@ -8,6 +8,7 @@ import com.third.mobile.bean.request.ResetPasswordRequest;
 import com.third.mobile.bean.response.UnifiedResult;
 import com.third.mobile.bean.response.UnifiedResultBuilder;
 import com.third.mobile.integration.IFileService;
+import com.third.mobile.integration.IMessageService;
 import com.third.mobile.service.IProductService;
 import com.third.mobile.service.IUserService;
 import com.third.mobile.service.security.user.JwtUser;
@@ -71,6 +72,9 @@ public class UserController {
 
     @Autowired
     private UserHelper jwtHelper;
+
+    @Autowired
+    private IMessageService messageService;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -186,16 +190,21 @@ public class UserController {
             }
         }
         //生成激活码
-        String code = "123456";
+        String code = createRandomNumber();
         String redisKey = Constants.RedisKey.USER_REGISTER + phone;
         if(stringRedisTemplate.hasKey(redisKey)){
             return UnifiedResultBuilder.errorResult(Constants.MESSAGE_CODE_WAIT_ERROR_CODE,
                     Constants.MESSAGE_CODE_WAIT_ERROR_MESSAGE);
         }else{
-            stringRedisTemplate.opsForValue().set(redisKey, code, 5, TimeUnit.MINUTES);
-            return UnifiedResultBuilder.defaultSuccessResult();
+            if(messageService.sendCaptcha(code, phone, "1")) {
+                logger.info("短信验证码发送成功：{}", code);
+                stringRedisTemplate.opsForValue().set(redisKey, code, 10, TimeUnit.MINUTES);
+                return UnifiedResultBuilder.defaultSuccessResult();
+            }
         }
 
+        return UnifiedResultBuilder.errorResult(Constants.CALL_SERVICE_ERROR_CODE,
+                Constants.CALL_SERVICE_ERROR_MESSAGE);
     }
 
     @PostMapping(value = "/verification/check")
@@ -212,10 +221,18 @@ public class UserController {
 
     @PostMapping(value = "/register")
     public UnifiedResult userRegister(CustomRegisterRequest request){
-        String redisKey = Constants.RedisKey.USER_REGISTER + request.getPhone();
-        if(!request.getMessageCode().equals(stringRedisTemplate.opsForValue().get(redisKey))){
-            return UnifiedResultBuilder.errorResult(Constants.MESSAGE_CODE_ERROR_CODE,
-                    Constants.MESSAGE_CODE_ERROR_MESSAGE);
+
+        if(!StringUtils.isEmpty(request.getImageCode())){
+            String imageCode = request.getImageCode().toUpperCase();
+            String imageCodeRedisKey = Constants.IMAGE_CODE_PREFIX + imageCode;
+            if(!imageCode.equals(stringRedisTemplate.opsForValue().get(imageCodeRedisKey))){
+                return UnifiedResultBuilder.errorResult(Constants.MESSAGE_CODE_ERROR_CODE,"图形验证码错误");
+            }
+
+        }
+        String messageCodeRedisKey = Constants.MESSAGE_CODE_PREFIX + request.getPhone();
+        if(!request.getMessageCode().equals(stringRedisTemplate.opsForValue().get(messageCodeRedisKey))){
+            return UnifiedResultBuilder.errorResult(Constants.PARAMETER_NOT_VALID_ERROR_CODE,"短信验证码错误");
         }
         if(StringUtils.isEmpty(request.getPassword())){
             return UnifiedResultBuilder.errorResult(Constants.PARAMETER_NOT_VALID_ERROR_CODE,
@@ -364,4 +381,12 @@ public class UserController {
     }
 
 
+    private static String createRandomNumber() {
+        StringBuffer veriCode = new StringBuffer();
+        for (int i = 0; i < 6; i++) {
+            int temp = (int) (Math.random() * 9);
+            veriCode.append(temp);
+        }
+        return veriCode.toString();
+    }
 }
