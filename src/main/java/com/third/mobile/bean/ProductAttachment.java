@@ -2,13 +2,11 @@ package com.third.mobile.bean;
 
 import java.util.Date;
 
-public class Attachment {
+public class ProductAttachment {
 
     private Integer id;
 
-    private Integer checkOrderId;
-
-    private String checkOrderNumber;
+    private Integer productId;
 
     private String fileName;
 
@@ -26,6 +24,14 @@ public class Attachment {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getFileName() {
@@ -66,21 +72,5 @@ public class Attachment {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Integer getCheckOrderId() {
-        return checkOrderId;
-    }
-
-    public void setCheckOrderId(Integer checkOrderId) {
-        this.checkOrderId = checkOrderId;
-    }
-
-    public String getCheckOrderNumber() {
-        return checkOrderNumber;
-    }
-
-    public void setCheckOrderNumber(String checkOrderNumber) {
-        this.checkOrderNumber = checkOrderNumber;
     }
 }

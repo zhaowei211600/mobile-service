@@ -46,10 +46,10 @@ public class GenerateProductNumberServiceImpl implements GenerateProductNumberSe
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String current = simpleDateFormat.format(new Date());
         ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
-        Long serialNumber = valueOperations.increment(CHECK_ORDER_NUMBER_PREFIX, 1);
+        Long serialNumber = valueOperations.increment(CHECK_ORDER_NUMBER_REDIS_KEY, 1);
         String assetNumber = String.format("%08d", serialNumber);
         StringBuffer sb = new StringBuffer();
-        sb.append(CHECK_ORDER_NUMBER_REDIS_KEY).append(current).append(assetNumber);
+        sb.append(CHECK_ORDER_NUMBER_PREFIX).append(current).append(assetNumber);
         LOGGER.info("正在生成验收编号编号：{}", sb.toString());
         return sb.toString();
     }

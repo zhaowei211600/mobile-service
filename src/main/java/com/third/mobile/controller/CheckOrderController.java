@@ -68,7 +68,7 @@ public class CheckOrderController {
                 Constants.EMPTY_DATA_ERROR_MESSAGE);
     }
 
-    @PostMapping("/number")
+    @GetMapping("/number")
     public UnifiedResult getCheckOrderNumber(){
         String checkOrderNumber = numberService.generateCheckOrderNumber();
         if(!StringUtils.isEmpty(checkOrderNumber)){

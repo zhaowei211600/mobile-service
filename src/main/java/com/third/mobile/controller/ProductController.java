@@ -1,9 +1,6 @@
 package com.third.mobile.controller;
 
-import com.third.mobile.bean.Attachment;
-import com.third.mobile.bean.CheckOrder;
-import com.third.mobile.bean.Product;
-import com.third.mobile.bean.User;
+import com.third.mobile.bean.*;
 import com.third.mobile.bean.request.ProductApplyRequest;
 import com.third.mobile.bean.request.ProductCheckRequest;
 import com.third.mobile.bean.request.ProductListRequest;
@@ -17,6 +14,7 @@ import com.third.mobile.util.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -195,6 +193,7 @@ public class ProductController {
     public UnifiedResult productApply(@RequestBody ProductApplyRequest request,
                                       @RequestAttribute("username")String phone){
 
+        logger.info("结项申请:{}", request.toString());
         User user = userService.findByPhone(phone);
         if(user == null){
             return UnifiedResultBuilder.errorResult(Constants.ACCOUNT_EXISTS_ERROR_CODE,
@@ -217,6 +216,7 @@ public class ProductController {
             CheckOrder checkOrder = new CheckOrder();
             checkOrder.setUserId(user.getId());
             checkOrder.setProductId(product.getId());
+            checkOrder.setCheckOrderNumber(request.getCheckOrderNumber());
             checkOrder.setOrderId(request.getOrderId());
             checkOrder.setFinishDesc(request.getDeliveryDesc());
             checkOrder.setStatus("1");
@@ -248,4 +248,16 @@ public class ProductController {
                 Constants.EMPTY_DATA_ERROR_MESSAGE);
     }
 
+    @GetMapping("/file/list")
+    public UnifiedResult listFile(Integer productId){
+
+        if(!StringUtils.isEmpty(productId)){
+            List<ProductAttachment> fileList = productService.listFile(productId);
+            if(fileList != null && fileList.size() > 0){
+                return UnifiedResultBuilder.successResult(Constants.SUCCESS_MESSAGE, fileList);
+            }
+        }
+        return UnifiedResultBuilder.errorResult(Constants.CALL_SERVICE_ERROR_CODE,
+                Constants.CALL_SERVICE_ERROR_MESSAGE);
+    }
 }

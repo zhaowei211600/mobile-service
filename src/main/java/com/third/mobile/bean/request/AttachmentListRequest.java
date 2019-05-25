@@ -6,6 +6,8 @@ public class AttachmentListRequest {
 
     private Integer checkOrderId;
 
+    private String checkOrderNumber;
+
     private Integer pageNum = 1;
 
     private Integer pageSize = 10;
@@ -40,5 +42,13 @@ public class AttachmentListRequest {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public String getCheckOrderNumber() {
+        return checkOrderNumber;
+    }
+
+    public void setCheckOrderNumber(String checkOrderNumber) {
+        this.checkOrderNumber = checkOrderNumber;
     }
 }

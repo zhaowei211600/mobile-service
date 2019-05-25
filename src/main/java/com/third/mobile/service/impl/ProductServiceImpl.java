@@ -2,15 +2,18 @@ package com.third.mobile.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.third.mobile.bean.Product;
+import com.third.mobile.bean.ProductAttachment;
 import com.third.mobile.bean.request.ProductListRequest;
 import com.third.mobile.bean.response.ProductStatResponse;
 import com.third.mobile.dao.OrderMapper;
+import com.third.mobile.dao.ProductAttachmentMapper;
 import com.third.mobile.dao.ProductMapper;
 import com.third.mobile.service.GenerateProductNumberService;
 import com.third.mobile.service.IProductService;
 import com.third.mobile.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,9 @@ public class ProductServiceImpl implements IProductService{
 
     @Resource
     private OrderMapper orderMapper;
+
+    @Autowired
+    private ProductAttachmentMapper attachmentMapper;
 
     @Override
     public List<Product> listProduct(ProductListRequest request) {
@@ -125,5 +131,10 @@ public class ProductServiceImpl implements IProductService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<ProductAttachment> listFile(Integer productId) {
+        return attachmentMapper.listFile(productId);
     }
 }

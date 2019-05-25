@@ -39,7 +39,8 @@ spring:
         timeout: 10000
   jackson:
       date-format: yyyy-MM-dd HH:mm:ss
-      time-zone: GMT+8
+      time-zone: GMT-6
+
   mail:
     default-encoding: UTF-8
     host: smtp.163.com
@@ -69,5 +70,4 @@ file:
 
 admin:
   email: ruiliqiji2019@126.com
-
 

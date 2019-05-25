@@ -6,6 +6,8 @@ public class ProductApplyRequest {
 
     private Integer orderId;
 
+    private String checkOrderNumber;
+
     private String deliveryDesc;
 
     public Integer getProductId() {
@@ -24,6 +26,14 @@ public class ProductApplyRequest {
         this.orderId = orderId;
     }
 
+    public String getCheckOrderNumber() {
+        return checkOrderNumber;
+    }
+
+    public void setCheckOrderNumber(String checkOrderNumber) {
+        this.checkOrderNumber = checkOrderNumber;
+    }
+
     public String getDeliveryDesc() {
         return deliveryDesc;
     }
@@ -37,6 +47,7 @@ public class ProductApplyRequest {
         return "ProductApplyRequest{" +
                 "productId=" + productId +
                 ", orderId=" + orderId +
+                ", checkOrderNumber='" + checkOrderNumber + '\'' +
                 ", deliveryDesc='" + deliveryDesc + '\'' +
                 '}';
     }

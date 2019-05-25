@@ -11,6 +11,10 @@ public class Order {
 
     private Integer productId;
 
+    private String productNo;
+
+    private String expectDeliveryTime;
+
     private String status;
 
     private String createTime;
@@ -123,5 +127,21 @@ public class Order {
 
     public void setExpectCost(BigDecimal expectCost) {
         this.expectCost = expectCost;
+    }
+
+    public String getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
+    }
+
+    public String getExpectDeliveryTime() {
+        return expectDeliveryTime;
+    }
+
+    public void setExpectDeliveryTime(String expectDeliveryTime) {
+        this.expectDeliveryTime = expectDeliveryTime;
     }
 }

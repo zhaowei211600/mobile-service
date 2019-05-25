@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.third.mobile.dao.AttachmentMapper" >
-  <resultMap id="BaseResultMap" type="com.third.mobile.bean.Attachment" >
+<mapper namespace="com.third.mobile.dao.ProductAttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.third.mobile.bean.ProductAttachment" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="check_order_id" property="checkOrderId" jdbcType="INTEGER" />
-    <result column="check_order_number" property="checkOrderNumber" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
     <result column="file_name" property="fileName" jdbcType="VARCHAR" />
     <result column="file_path" property="filePath" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
@@ -12,38 +11,35 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, check_order_id,check_order_number, file_name, file_path, status, create_time, update_time
+    id, product_id, file_name, file_path, status, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />
-    from t_attachment
+    from t_product_attachment
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_attachment
+    delete from t_product_attachment
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.third.mobile.bean.Attachment" >
-    insert into t_attachment (id, check_order_id, check_order_number, file_name,
+  <insert id="insert" parameterType="com.third.mobile.bean.ProductAttachment" >
+    insert into t_product_attachment (id, product_id, file_name,
       file_path, status, create_time, 
       update_time)
-    values (#{id,jdbcType=INTEGER}, #{checkOrderId,jdbcType=INTEGER},#{checkOrderNumber,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR},
       #{filePath,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.third.mobile.bean.Attachment"
+  <insert id="insertSelective" parameterType="com.third.mobile.bean.ProductAttachment"
           useGeneratedKeys="true" keyProperty="id">
-    insert into t_attachment
+    insert into t_product_attachment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="checkOrderId != null" >
-        check_order_id,
-      </if>
-      <if test="checkOrderNumber != null" >
-        check_order_number,
+      <if test="productId != null" >
+        product_id,
       </if>
       <if test="fileName != null" >
         file_name,
@@ -65,11 +61,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="checkOrderId != null" >
-        #{checkOrderId,jdbcType=INTEGER},
-      </if>
-      <if test="checkOrderNumber != null" >
-        #{checkOrderNumber,jdbcType=VARCHAR},
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
       </if>
       <if test="fileName != null" >
         #{fileName,jdbcType=VARCHAR},
@@ -88,14 +81,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.Attachment" >
-    update t_attachment
+  <update id="updateByPrimaryKeySelective" parameterType="com.third.mobile.bean.ProductAttachment" >
+    update t_product_attachment
     <set >
-      <if test="checkOrderId != null" >
-        check_order_id = #{checkOrderId,jdbcType=INTEGER},
-      </if>
-      <if test="checkOrderNumber != null" >
-        check_order_number = #{checkOrderNumber,jdbcType=VARCHAR},
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
       </if>
       <if test="fileName != null" >
         file_name = #{fileName,jdbcType=VARCHAR},
@@ -115,10 +105,9 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.Attachment" >
-    update t_attachment
-    set check_order_id = #{checkOrderId,jdbcType=INTEGER},
-      check_order_number = #{checkOrderNumber,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.third.mobile.bean.ProductAttachment" >
+    update t_product_attachment
+    set product_id = #{productId,jdbcType=INTEGER},
       file_name = #{fileName,jdbcType=VARCHAR},
       file_path = #{filePath,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
@@ -126,23 +115,28 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="enableAttachment">
+    update t_product_attachment
+    set status = '1', product_id = #{productId}
+    where product_id = 0
+    and file_path in
+    <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+  </update>
 
-  <select id="listAttachment" resultMap="BaseResultMap" parameterType="com.third.mobile.bean.request.AttachmentListRequest">
+  <select id="selectByFilePath" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_attachment
-    where 1=1 and status = 1
-    <if test="checkOrderId != null and checkOrderId != 0">
-      and check_order_id = #{checkOrderId}
-    </if>
-    <if test="checkOrderNumber != null and checkOrderNumber != ''">
-      and check_order_number = #{checkOrderNumber}
-    </if>
+    from t_product_attachment
+    where file_path = #{filePath,jdbcType=VARCHAR}
   </select>
 
-  <update id="updateAttachment">
-      update t_attachment set check_order_id = #{checkOrderId,jdbcType=INTEGER}
-      where check_order_number = #{checkOrderNumber,jdbcType=VARCHAR}
-      and check_order_id = 0
-  </update>
+  <select id="listFile" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_product_attachment
+    where product_id = #{productId, jdbcType=INTEGER}
+    and status = '1'
+  </select>
 </mapper>

@@ -6,6 +6,8 @@
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="product_id" property="productId" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="product_no" property="productNo" jdbcType="VARCHAR" />
+    <result column="expect_delivery_time" property="expectDeliveryTime" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="real_name" property="realName" jdbcType="VARCHAR" />
@@ -135,7 +137,9 @@
       t2.phone ,
       t2.register_time ,
       t3.name product_name ,
-      t3.budget
+      t3.budget,
+      t3.product_id product_no,
+      t3.expect_delivery_time
     FROM
       t_order t1
       LEFT JOIN t_user t2 ON t1.user_id = t2.id

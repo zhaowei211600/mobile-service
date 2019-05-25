@@ -3,6 +3,7 @@ package com.third.mobile.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.third.mobile.bean.CheckOrder;
 import com.third.mobile.bean.request.CheckOrderListRequest;
+import com.third.mobile.dao.AttachmentMapper;
 import com.third.mobile.dao.CheckOrderMapper;
 import com.third.mobile.service.ICheckOrderService;
 import org.slf4j.Logger;
@@ -20,6 +21,9 @@ public class CheckOrderServiceImpl implements ICheckOrderService {
     @Autowired
     private CheckOrderMapper checkOrderMapper;
 
+    @Autowired
+    private AttachmentMapper attachmentMapper;
+
     @Override
     public CheckOrder selectById(Integer checkOrderId) {
         return checkOrderMapper.selectById(checkOrderId);
@@ -36,6 +40,7 @@ public class CheckOrderServiceImpl implements ICheckOrderService {
     @Override
     public boolean saveCheckOrder(CheckOrder checkOrder) {
         if(checkOrderMapper.insertSelective(checkOrder) > 0){
+            attachmentMapper.updateAttachment(checkOrder.getCheckOrderNumber(),checkOrder.getId());
             return true;
         }
         return false;

@@ -1,6 +1,7 @@
 package com.third.mobile.service;
 
 import com.third.mobile.bean.Product;
+import com.third.mobile.bean.ProductAttachment;
 import com.third.mobile.bean.request.ProductListRequest;
 import com.third.mobile.bean.response.ProductStatResponse;
 
@@ -27,5 +28,8 @@ public interface IProductService {
     ProductStatResponse statProduct();
 
     boolean applyProduct(Product product);
+
+    List<ProductAttachment> listFile(Integer productId);
+
 
 }

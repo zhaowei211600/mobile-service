@@ -75,7 +75,8 @@ public class AttachmentController {
 
     @RequestMapping("/upload")
     public UnifiedResult uploadAttachment(@RequestParam("file") MultipartFile file,
-                                          @RequestParam("checkOrderId") int checkOrderId) throws IOException {
+                                          @RequestParam("checkOrderId") int checkOrderId,
+                                          @RequestParam("checkOrderNumber")String checkOrderNumber) throws IOException {
 
         logger.info("文件上传大小：{}", file.getSize());
         String fileSuffix = "";
@@ -92,6 +93,7 @@ public class AttachmentController {
             fileAttr.put("originalName", originalName);
             Attachment attachment = new Attachment();
             attachment.setCheckOrderId(checkOrderId);
+            attachment.setCheckOrderNumber(checkOrderNumber);
             attachment.setFileName(originalName);
             attachment.setFilePath(fileName);
             attachment.setStatus("1");
