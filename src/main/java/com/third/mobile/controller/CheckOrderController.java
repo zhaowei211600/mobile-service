@@ -2,12 +2,14 @@ package com.third.mobile.controller;
 
 import com.third.mobile.bean.CheckOrder;
 import com.third.mobile.bean.Order;
+import com.third.mobile.bean.User;
 import com.third.mobile.bean.request.CheckOrderListRequest;
 import com.third.mobile.bean.response.UnifiedResult;
 import com.third.mobile.bean.response.UnifiedResultBuilder;
 import com.third.mobile.service.GenerateProductNumberService;
 import com.third.mobile.service.ICheckOrderService;
 import com.third.mobile.service.IOrderService;
+import com.third.mobile.service.IUserService;
 import com.third.mobile.util.Constants;
 import com.third.mobile.util.Page;
 import org.slf4j.Logger;
@@ -34,6 +36,9 @@ public class CheckOrderController {
     @Autowired
     private GenerateProductNumberService numberService;
 
+    @Autowired
+    private IUserService userService;
+
     @PostMapping("/detail")
     public UnifiedResult checkDetail(Integer checkOrderId, Integer orderId){
 
@@ -57,7 +62,15 @@ public class CheckOrderController {
 
 
     @PostMapping("/list")
-    public UnifiedResult checkOrderList(@RequestBody CheckOrderListRequest request){
+    public UnifiedResult checkOrderList(@RequestBody CheckOrderListRequest request,
+                                        @RequestAttribute(value = "username",required = false)String phone){
+
+        if(!StringUtils.isEmpty(phone)){
+            User user = userService.findByPhone(phone);
+            if(user != null){
+                request.setUserId(user.getId());
+            }
+        }
         List<CheckOrder> checkOrderList = checkOrderService.getCheckOrderList(request);
         if(checkOrderList != null && checkOrderList.size() > 0){
             return UnifiedResultBuilder.successResult(Constants.SUCCESS_MESSAGE,

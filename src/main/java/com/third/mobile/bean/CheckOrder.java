@@ -29,6 +29,8 @@ public class CheckOrder {
 
     private String productName;
 
+    private String productNo;
+
     private String checkOrderNumber;
 
     private Date createTime;
@@ -153,5 +155,13 @@ public class CheckOrder {
 
     public void setCheckOrderNumber(String checkOrderNumber) {
         this.checkOrderNumber = checkOrderNumber;
+    }
+
+    public String getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
     }
 }

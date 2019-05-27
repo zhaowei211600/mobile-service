@@ -6,6 +6,8 @@ public class CheckOrderListRequest {
 
     private String status;
 
+    private Integer userId;
+
     private Integer pageNum = 1;
 
     private Integer pageSize = 10;
@@ -40,5 +42,13 @@ public class CheckOrderListRequest {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

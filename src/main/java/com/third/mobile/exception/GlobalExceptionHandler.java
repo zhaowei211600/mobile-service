@@ -17,6 +17,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.Iterator;
@@ -103,6 +104,14 @@ public class GlobalExceptionHandler {
         LOGGER.warn("[参数校验异常]-堆栈信息：{}", ErrorUtil.getErrorStackInfo(exception));
         return UnifiedResultBuilder.errorResult(Constants.PARAMETER_NOT_VALID_ERROR_CODE, stringBuilder.toString());
     }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public Object handleUploadSizeException(MaxUploadSizeExceededException exception){
+        LOGGER.error("[空指针异常]:{} {}", exception.getMessage(), exception.getClass().getSimpleName());
+        LOGGER.warn("[空指针异常]-堆栈信息：{}", ErrorUtil.getErrorStackInfo(exception));
+        return UnifiedResultBuilder.errorResult("20001", "文件大小超过限制");
+    }
+
 
     @ExceptionHandler(Exception.class)
     public Object handleException(Exception exception){
